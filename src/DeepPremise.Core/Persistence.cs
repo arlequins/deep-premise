@@ -42,7 +42,10 @@ public sealed partial class SimulationRunner
         foreach (var e in s.Events)
             Require(e.Id > 0 && e.Id < s.NextEvent && e.Tick <= s.Tick && Places.Any(p => p.Id == e.Place) && AgentIds.Contains(e.Actor) && e.Claim.Length <= 1000);
         foreach (var line in s.Transcript)
+        {
+            if (line.Voices != null) Require(line.Voices.Count <= 2 && line.Voices.All(v => v.Key is "en" or "ko" && v.Value.Length is > 0 and <= 1200));
             Require(line.Id > 0 && line.Id < s.NextLine && line.Tick <= s.Tick && line.Speaker.Length <= 80 && line.Text.Length <= 1200);
+        }
         foreach (var entry in s.Journal) Require(entry.Tick <= s.Tick && entry.Text.Length <= 1200 && entry.Source.Length <= 80);
         foreach (var entry in s.Accounts) Require(entry.EventId > 0 && entry.EventId < s.NextEvent && entry.Claim.Length <= 1000 && entry.Source.Length <= 80);
         foreach (var d in s.Deliveries)

@@ -1,5 +1,6 @@
 using Godot;
 using DeepPremise.Core;
+using DeepPremise.Core.Localization;
 using System;
 using System.Linq;
 
@@ -8,9 +9,10 @@ namespace DeepPremise.Godot;
 public partial class NeighborhoodView : Control
 {
     private WorldView? view;
+    private TextCatalog catalog = new("en");
     private double phase;
     public Action<string>? PlaceSelected;
-    public void Present(WorldView value) { view = value; QueueRedraw(); }
+    public void Present(WorldView value, TextCatalog language) { view = value; catalog = language; QueueRedraw(); }
     public override void _Ready() { MouseDefaultCursorShape = CursorShape.PointingHand; ClipContents = true; }
     public override void _Process(double delta) { phase += delta; QueueRedraw(); }
     public override void _GuiInput(InputEvent @event)
@@ -82,7 +84,8 @@ public partial class NeighborhoodView : Control
                 DrawLine(pos + new Vector2(8, 13), pos + new Vector2(8, 23), new Color("dbc28a"), 4);
             }
             var label = p.Id switch { "courtyard" => "COMMON TABLE", "bakery" => "THE OVEN", "workshop" => "MENDING ROOM", _ => "REED LANDING" };
-            var font = ThemeDB.FallbackFont;
+            label = catalog.Text(label);
+            var font = GetThemeDefaultFont();
             var width = font.GetStringSize(label, fontSize: 11).X;
             DrawString(font, pos + new Vector2(-width / 2, 52), label, fontSize: 11, modulate: new Color("c8c7a9"));
             var people = view.Residents.Where(a => a.Place == p.Id).ToArray();
@@ -92,6 +95,6 @@ public partial class NeighborhoodView : Control
                 DrawCircle(dot, 3, new Color("d6ba80"));
             }
         }
-        DrawString(ThemeDB.FallbackFont, new Vector2(16, 24), "THE REED QUARTER", fontSize: 11, modulate: new Color("b8bea1"));
+        DrawString(GetThemeDefaultFont(), new Vector2(16, 24), catalog.Text("THE REED QUARTER"), fontSize: 11, modulate: new Color("b8bea1"));
     }
 }

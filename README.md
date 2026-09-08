@@ -2,12 +2,13 @@
 
 A conversation-first simulation prototype. Six neighbors, four nearby places, and incomplete accounts of an ordinary morning.
 
-**Status:** local Windows prototype 0.2.0. This is a small playable experiment, not a finished Steam release.
+**Status:** local Windows prototype 0.2.1. This is a small playable experiment, not a finished Steam release.
 
 ## Play
 
-Extract `dist/Unseen-Order-0.2.0-Windows-x64.zip` and run `Unseen-Order.exe`. Keep the adjacent `.pck` and `data_*` directory with the executable. The portable package includes its .NET runtime; players do not install Godot, Python, or a development SDK.
+Extract `dist/Unseen-Order-0.2.1-Windows-x64.zip` and run `Unseen-Order.exe`. Keep the adjacent `.pck` and `data_*` directory with the executable. The portable package includes its .NET runtime; players do not install Godot, Python, or a development SDK.
 
+- Choose English or Korean in the top-right selector. The preference persists across restarts.
 - Choose a place on the map or with a location button.
 - Choose someone within earshot, then a conversation option.
 - Compare accounts, pass on something you heard, share food, or make a small request.
@@ -31,13 +32,13 @@ One tick is 15 in-world minutes. The viewer normally advances one tick every eig
 
 ## Optional AI dialogue
 
-Open **Notebook / AI → AI voice**. Enter an OpenAI API key and a model ID available to your API account, then enable it for this session. The key is kept only in memory and is not included in saves or source control. The current Codex conversation is not an embedded game AI service.
+Open **Notebook / AI → AI voice**. Enter an OpenAI API key, then enable it for this session. The model is pinned to `gpt-5.6-luna` with `reasoning.effort: none`; there is no automatic model upgrade. The key is kept only in memory and is not included in saves or source control. The current Codex conversation is not an embedded game AI service.
 
 Enabling sends your question, recent dialogue, and the selected resident's known accounts to OpenAI. API usage may incur charges. This prototype allows at most 20 requests per process session, with a 12-second timeout and automatic local fallback. No background simulation uses AI.
 
 The adapter follows the official [Responses API structured output guide](https://developers.openai.com/api/docs/guides/structured-outputs), requests `store: false`, and uses a constrained character prompt. This limits the model's role but does not guarantee perfect factual phrasing. Generated dialogue is presentation only; the model cannot alter resources, facts, or memories. Responses are saved in the local conversation transcript. Generated wording is not deterministic; simulation state remains deterministic.
 
-Without AI, free-text input uses simple English topic matching. Buttons provide all local interactions. The AI integration is tested with mocked HTTP responses; a live paid API round trip has not been verified in this workspace.
+Without AI, free-text input uses English/Korean topic matching. Buttons provide all local interactions. The AI integration is tested with mocked HTTP responses; a live paid API round trip has not been verified in this workspace.
 
 ## Development on Windows
 
@@ -74,8 +75,20 @@ Do not use an actual player save folder for automated tests. Native smoke mode s
 
 The headless suite covers deterministic continuation, detached observations, multiple seed histories, conversation reachability, sharing, player consequences, malformed saves, backup recovery, 100,000 ticks, and optional AI success/failure contracts. Native smoke checks exercise the actual C# viewer and two window sizes. See `docs/HANDOFF.md` for current implementation notes and remaining work.
 
-This repository, source comments, documentation, and game text use English. Do not explain the hidden world mechanisms to the player in status reports or marketing copy.
+Code identifiers, comments, and development documentation use English. Authored English game text is canonical; Korean translations and topic keywords live in `src/DeepPremise.Core/Resources/ko.json`. Do not explain the hidden world mechanisms to the player in status reports or marketing copy.
 
 ## Notices
 
 Godot and bundled font license notices are in `game/assets` and included in the portable package. Game code and original content have no separate redistribution license granted. No website or AWS resources are part of this project.
+
+## Live feedback workflow
+
+Run `Play-Unseen-Order.cmd` or `tools/run-debug.ps1` to build and launch the native game with local diagnostics. The script respects the machine's PowerShell execution policy. A normal portable launch does not record debug screenshots.
+
+While the debug game runs, `artifacts/live/context.json` records the timestamp, process ID, language, place, selected resident, tick, pause state, model name, and recent displayed conversation. `screen.png` captures the game viewport roughly every five seconds and after UI changes; `game.log` holds engine errors. Screenshots are skipped while the notebook/AI settings window is open. API keys and personal notebook text are excluded from diagnostics. These local artifacts are ignored by Git.
+
+An assistant can consult these files when you give feedback. This is not an external monitoring service or continuous assistant observation. Verify timestamps and process liveness.
+
+Language changes never consume ticks or alter facts. Typed player text and notes stay verbatim. Existing authored conversations translate on display; new AI replies retain language-specific variants and their authored fallback. Older arbitrary AI prose without a canonical source remains verbatim.
+
+Luna reference: https://developers.openai.com/api/docs/models/gpt-5.6-luna

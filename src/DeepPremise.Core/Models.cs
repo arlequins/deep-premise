@@ -74,7 +74,7 @@ public sealed class Obligation
     public bool Acknowledged { get; set; }
 }
 
-public sealed record ConversationLine(int Id, long Tick, string Speaker, string Text);
+public sealed record ConversationLine(int Id, long Tick, string Speaker, string Text, bool IsPlayerInput = false, Dictionary<string, string>? Voices = null);
 public sealed record PlayerAccount(int EventId, string Claim, string Source, long HeardAt);
 public sealed record JournalEntry(long Tick, string Source, string Text);
 public sealed record RecentQuestion(string AgentId, string Topic, long Tick);

@@ -214,7 +214,7 @@ public sealed partial class SimulationRunner
         a.Knowledge.Add(new Knowledge { EventId = e.Id, Claim = claim, Source = source, Witnessed = witnessed, Strength = witnessed ? 8 : 5, LearnedAt = state.Tick });
         if (a.Knowledge.Count > 32) a.Knowledge.RemoveAt(0);
     }
-    private void Line(string speaker, string text) => state.Transcript.Add(new ConversationLine(state.NextLine++, state.Tick, speaker, text));
+    private void Line(string speaker, string text, bool isPlayerInput = false) => state.Transcript.Add(new ConversationLine(state.NextLine++, state.Tick, speaker, text, isPlayerInput));
     private void Journal(string source, string text) => state.Journal.Add(new JournalEntry(state.Tick, source, text));
     private void Trim()
     {
@@ -248,7 +248,7 @@ public sealed partial class SimulationRunner
         return new WorldView(state.Tick, FormatTime(state.Tick), place.Id, place.Name, atmosphere,
             state.Bread, state.Agents.Select(a => new ResidentView(a.Id, a.Name, a.Role, a.Place,
                 a.Hunger >= 3 ? "Keeps glancing at the bread." : a.Place == "courtyard" ? "Has pulled up a chair." : "Getting on with the day.")).ToArray(),
-            Array.AsReadOnly(Places), state.Transcript.ToArray(), state.Journal.AsEnumerable().Reverse().ToArray(),
+            Array.AsReadOnly(Places), state.Transcript.Select(l => l with { Voices = l.Voices == null ? null : new Dictionary<string, string>(l.Voices) }).ToArray(), state.Journal.AsEnumerable().Reverse().ToArray(),
             state.Accounts.ToArray(), state.Notes);
     }
     public static string FormatTime(long tick) => $"Day {tick / 96 + 1}  /  {tick % 96 / 4:00}:{tick % 4 * 15:00}";

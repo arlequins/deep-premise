@@ -6,7 +6,7 @@ The user changed the technical direction to **Godot 4 .NET + C# + independent si
 
 The central quality target is **surprise arising from interacting patterns**. The world must not be entirely AI-generated. Stable habits, needs, relationships, incomplete knowledge, and player actions should combine into outcomes that are understandable afterwards but not always predictable in advance. AI is optional dialogue presentation, not an omniscient world author.
 
-Use English for all repository content, code, documentation, and in-game text. Chat with the user in Korean. Keep hidden world mechanics out of user-facing development updates. Inform the user of significant modifications/deletions; ordinary in-scope work is authorized. No extra tasks or agents unless explicitly requested.
+Use English for code identifiers, comments, and development documentation. The game supports English and Korean; Korean text belongs in localization resources. Chat with the user in Korean. Keep hidden world mechanics out of user-facing development updates. Inform the user of significant modifications/deletions; ordinary in-scope work is authorized. No extra tasks or agents unless explicitly requested.
 
 ## Preserved work
 
@@ -22,7 +22,7 @@ Commit `3e86635` preserves the prior native GDScript prototype and tests. Active
 - Detached character context sent to an optional OpenAI Responses API adapter. No tool calls or state-changing capabilities. Only the selected NPC's reply is rewritten.
 - API keys remain in memory. AI is off by default, with 20 requests/process session, rate spacing, timeout, bounded response reading, and local fallback.
 - Atomic disk replacement with backup and preservation of corrupt primary saves.
-- A headless executable suite with 32 assertions, including 100,000 ticks and mocked AI transport. No Godot runtime is needed to run it.
+- A headless executable suite with 45 assertions, including 100,000 ticks and mocked AI transport. No Godot runtime is needed to run it.
 - Windows export and portable packaging scripts. Use the .NET engine and .NET templates, not standard Godot executables.
 
 ## Important limits
@@ -46,10 +46,18 @@ No website, Beat, AWS, Steam account, or unrelated repository was modified durin
 
 ## Verification from this Windows handoff
 
-- Core and optional voice adapter: 32/32 executable checks passed.
+- Core and optional voice adapter: 45/45 executable checks passed.
 - The 100,000-tick test completed in about 0.6 seconds on this development machine; this is a six-agent core microbenchmark, not a large-world performance claim.
 - Native C# viewer smoke passed at 1440x900 and 1160x840. Both screenshots were visually inspected.
 - Portable Windows startup and restart both exited successfully with identical saved state during the short smoke run.
 - The packaged app was launched with global .NET lookup disabled and an intentionally absent DOTNET_ROOT; its bundled runtime loaded successfully.
 - Export log contains no ERROR entries. SHA-256 sums are generated under dist.
 - The ZIP is a local artifact, not a published Steam or GitHub release. No live paid AI request was made.
+
+## Bilingual live debugging update
+
+The user requested English/Korean support, a local running debug game for feedback, and Luna-only AI dialogue. The header has a persistent language picker. Core facts remain canonical English. Free-text matching understands both languages. Typed text and notes remain verbatim. New AI replies preserve per-language variants and their authored fallback. Older v3 saves load without migration.
+
+The adapter pins `gpt-5.6-luna`, disables reasoning, and never upgrades models. An API key entered by the player is still required. Codex subscription credentials are not reused. No paid live API call was made during this update.
+
+For feedback, read `artifacts/live/context.json`, inspect `screen.png`, and check `game.log`. Verify timestamps and process liveness first. Screenshots are skipped while the notebook/settings window is open. `tools/run-debug.ps1` launches the session without duplicating an active debug process. `Play-Unseen-Order.cmd` is a convenient launcher. Preserve active player saves when restarting. Do not terminate unrelated processes.

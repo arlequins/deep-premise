@@ -1,5 +1,7 @@
 using Godot;
 using DeepPremise.Core;
+using DeepPremise.Core.Localization;
+using System.Text.Json;
 using DeepPremise.Dialogue;
 using System;
 using System.Linq;
@@ -20,7 +22,16 @@ public partial class Main : Control
     private readonly CancellationTokenSource lifetime = new();
     private string selected = "neri";
     private string apiKey = "";
-    private string model = "";
+    private string model = OpenAiVoice.ModelId;
+    private TextCatalog catalog = new("en");
+    private PlayerPreferences preferences = new();
+    private string saveDirectory = "";
+    private OptionButton languagePicker = null!;
+    private bool debugSession;
+    private double debugElapsed;
+    private bool capturing;
+    private string debugDirectory = "";
+    private string T(string text) => catalog.Text(text);
     private bool aiEnabled, busy, paused;
     private bool loaded;
     private double elapsed;
@@ -40,25 +51,36 @@ public partial class Main : Control
     public override void _Ready()
     {
         voice = new OpenAiVoice(http);
-        BuildTheme(); BuildScreen();
         DisplayServer.WindowSetMinSize(new Vector2I(1160, 840));
         GetTree().AutoAcceptQuit = false;
         var args = OS.GetCmdlineUserArgs();
         smoke = args.Contains("--smoke");
         var saveArgument = args.FirstOrDefault(a => a.StartsWith("--save-dir="));
-        var folder = saveArgument != null ? saveArgument[11..] : OS.GetUserDataDir();
-        saves = new SaveStore(folder);
+        saveDirectory = saveArgument != null ? saveArgument[11..] : OS.GetUserDataDir();
+        preferences = PlayerPreferences.Load(saveDirectory, OS.GetLocale());
+        var localeOverride = args.FirstOrDefault(a => a.StartsWith("--language="));
+        if (localeOverride != null && localeOverride[11..] is "en" or "ko") preferences.Language = localeOverride[11..];
+        catalog = new TextCatalog(preferences.Language);
+        debugSession = args.Contains("--debug-session");
+        debugDirectory = ProjectSettings.GlobalizePath("res://artifacts/live");
+        if (debugSession)
+        {
+            IO.Directory.CreateDirectory(debugDirectory);
+            DisplayServer.WindowSetTitle("Unseen Order [DEBUG]");
+        }
+        BuildTheme(); BuildScreen();
+        saves = new SaveStore(saveDirectory);
         try
         {
             runner = saves.Open((uint)System.Security.Cryptography.RandomNumberGenerator.GetInt32(1, int.MaxValue));
             loaded = true; notes.Text = runner.Observe().Notes;
-            Save(); Refresh(true);
-            if (saves.LastNotice != "") status.Text = saves.LastNotice;
+            preferences.Save(saveDirectory); Save(); Refresh(true);
+            if (saves.LastNotice != "") status.Text = T(saves.LastNotice);
             if (smoke) CallDeferred(nameof(SmokeTest));
         }
         catch (Exception ex) when (ex is IO.IOException or IO.InvalidDataException or UnauthorizedAccessException)
         {
-            status.Text = "The save could not be opened. Your original files are preserved.";
+            status.Text = T("The save could not be opened. Your original files are preserved.");
             GD.PrintErr(ex.GetType().Name + ": unable to open save.");
             LabelText("Unable to open the saved neighborhood. Please check the save folder.", transcript, 20);
         }
@@ -89,15 +111,17 @@ public partial class Main : Control
             ContentMarginTop = padding, ContentMarginBottom = padding };
         style.SetCornerRadiusAll(6); return style;
     }
-    private Label LabelText(string text, Node parent, int size = 17, string color = "e6e1cd")
+    private Label LabelText(string text, Node parent, int size = 17, string color = "e6e1cd", bool translate = true)
     {
-        var label = new Label { Text = text, AutowrapMode = TextServer.AutowrapMode.WordSmart };
+        var label = new Label { Text = translate ? T(text) : text, AutowrapMode = TextServer.AutowrapMode.WordSmart };
         label.AddThemeFontSizeOverride("font_size", size); label.AddThemeColorOverride("font_color", new Color(color));
+        if (translate) label.SetMeta("source_text", text);
         parent.AddChild(label); return label;
     }
     private Button ButtonText(string text, Node parent, Action action)
     {
-        var button = new Button { Text = text, CustomMinimumSize = new Vector2(0, 40), SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        var button = new Button { Text = T(text), CustomMinimumSize = new Vector2(0, 40), SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        button.SetMeta("source_text", text);
         button.AddThemeFontSizeOverride("font_size", 15);
         button.Pressed += action; parent.AddChild(button); return button;
     }
@@ -115,11 +139,16 @@ public partial class Main : Control
         LabelText("UNSEEN ORDER", title, 29);
         LabelText("A chair. A conversation. A different account of the same morning.", title, 14, "a5b09b");
         clock = LabelText("", header, 17);
-        clock.AutowrapMode = TextServer.AutowrapMode.Off; clock.CustomMinimumSize = new Vector2(220, 0);
+        clock.AutowrapMode = TextServer.AutowrapMode.Off; clock.CustomMinimumSize = new Vector2(170, 0);
         clock.SizeFlagsVertical = SizeFlags.ShrinkCenter;
         pauseButton = ButtonText("Pause", header, () => { paused = !paused; Refresh(); });
         pauseButton.SizeFlagsHorizontal = SizeFlags.ShrinkEnd; pauseButton.SizeFlagsVertical = SizeFlags.ShrinkCenter;
         var journalButton = ButtonText("Notebook / AI", header, OpenNotebook); journalButton.SizeFlagsHorizontal = SizeFlags.ShrinkEnd; journalButton.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+        languagePicker = new OptionButton { SizeFlagsVertical = SizeFlags.ShrinkCenter };
+        languagePicker.AddItem("English"); languagePicker.AddItem(new TextCatalog("ko").Text("Korean"));
+        languagePicker.Selected = preferences.Language == "ko" ? 1 : 0;
+        languagePicker.ItemSelected += index => ChangeLanguage(index == 1 ? "ko" : "en");
+        header.AddChild(languagePicker);
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; body.AddThemeConstantOverride("separation", 24); root.AddChild(body);
         var left = Column(body, 8); left.CustomMinimumSize = new Vector2(405, 0);
         map = new NeighborhoodView { CustomMinimumSize = new Vector2(405, 200), SizeFlagsVertical = SizeFlags.ExpandFill };
@@ -144,15 +173,16 @@ public partial class Main : Control
         choices = new GridContainer { Columns = 1, SizeFlagsHorizontal = SizeFlags.ExpandFill };
         choices.AddThemeConstantOverride("v_separation", 6); choiceScroll.AddChild(choices);
         var input = new HBoxContainer(); right.AddChild(input);
-        question = new LineEdit { PlaceholderText = "Ask in your own words...", MaxLength = 400, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        question = new LineEdit { PlaceholderText = T("Ask in your own words..."), MaxLength = 400, SizeFlagsHorizontal = SizeFlags.ExpandFill };
         input.AddChild(question); question.TextSubmitted += _ => Ask();
         ButtonText("Ask", input, Ask).SizeFlagsHorizontal = SizeFlags.ShrinkEnd;
         status = LabelText("Listen, compare accounts, and let a little time pass. Space: pause.", root, 13, "a5b09b");
         BuildNotebook();
+        Retranslate(this);
     }
     private void BuildNotebook()
     {
-        notebook = new Window { Title = "Notebook & dialogue", Size = new Vector2I(780, 680), Transient = true, Visible = false };
+        notebook = new Window { Title = T("Notebook & dialogue"), Size = new Vector2I(780, 680), Transient = true, Visible = false };
         AddChild(notebook); notebook.CloseRequested += () => { if (loaded) { runner.SetNotes(notes.Text); Save(); } notebook.Hide(); };
         var margin = new MarginContainer(); notebook.AddChild(margin); margin.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         foreach (var side in new[] { "left", "right", "top", "bottom" }) margin.AddThemeConstantOverride("margin_" + side, 20);
@@ -160,7 +190,7 @@ public partial class Main : Control
         var notePage = Column(tabs); notePage.Name = "Your notes";
         LabelText("Leave room for another version.", notePage, 22);
         notes = new TextEdit { SizeFlagsVertical = SizeFlags.ExpandFill, WrapMode = TextEdit.LineWrappingMode.Boundary }; notePage.AddChild(notes);
-        ButtonText("Save notebook", notePage, () => { if (loaded) { var result = runner.SetNotes(notes.Text); Save(); status.Text = result.Message; } });
+        ButtonText("Save notebook", notePage, () => { if (loaded) { var result = runner.SetNotes(notes.Text); Save(); status.Text = T(result.Message); } });
         ButtonText("Start another neighborhood · archive this one", notePage, NewNeighborhood);
         var scroll = new ScrollContainer { Name = "Observations", HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; tabs.AddChild(scroll);
         journal = Column(scroll); journal.SizeFlagsHorizontal = SizeFlags.ExpandFill;
@@ -168,37 +198,90 @@ public partial class Main : Control
         LabelText("A voice, not a storyteller", ai, 24);
         LabelText("Optional: use OpenAI to express a resident's reply in natural language. Simulation rules still determine events, memories and actions. Local dialogue always works without AI.", ai);
         LabelText("When enabled, your question, recent conversation and that resident's known accounts are sent to OpenAI. API usage may incur charges. Maximum 20 requests per session; the key is kept only in memory.", ai, 15);
-        var keyInput = new LineEdit { PlaceholderText = "OpenAI API key", Secret = true }; ai.AddChild(keyInput);
-        var modelInput = new LineEdit { PlaceholderText = "Model ID from your OpenAI API account" }; ai.AddChild(modelInput);
+        var keyInput = new LineEdit { PlaceholderText = T("OpenAI API key"), Secret = true }; ai.AddChild(keyInput); keyInput.SetMeta("source_placeholder", "OpenAI API key");
+        LabelText("Luna only · no automatic model upgrade", ai, 15);
         var aiStatus = LabelText("Disabled", ai, 15);
         ButtonText("Enable for this session", ai, () =>
         {
-            if (keyInput.Text.Trim() == "" || modelInput.Text.Trim() == "") { aiStatus.Text = "Enter a key and a model ID."; return; }
-            apiKey = keyInput.Text.Trim(); model = modelInput.Text.Trim(); keyInput.Text = ""; aiEnabled = true;
-            aiStatus.Text = "Enabled. No request is sent until you speak to a resident."; Refresh();
+            if (keyInput.Text.Trim() == "") { aiStatus.Text = T("Enter your OpenAI API key."); return; }
+            apiKey = keyInput.Text.Trim(); model = OpenAiVoice.ModelId; keyInput.Text = ""; aiEnabled = true;
+            aiStatus.Text = T("Enabled. No request is sent until you speak to a resident."); Refresh();
         });
-        ButtonText("Use local dialogue", ai, () => { apiKey = ""; aiEnabled = false; aiStatus.Text = "Disabled"; Refresh(); });
+        ButtonText("Use local dialogue", ai, () => { apiKey = ""; aiEnabled = false; aiStatus.Text = T("Disabled"); Refresh(); });
         LabelText("Without AI, typed questions use topic matching. The conversation buttons give the full local interaction set. AI wording can be imperfect; it never edits simulation state.", ai, 14, "a5b09b");
+    }
+    private void ChangeLanguage(string language)
+    {
+        if (busy) return;
+        preferences.Language = language; catalog = new TextCatalog(language);
+        Retranslate(this);
+        question.PlaceholderText = T("Ask in your own words...");
+        notebook.Title = T("Notebook & dialogue");
+        try { preferences.Save(saveDirectory); status.Text = T("Language saved."); }
+        catch (Exception ex) when (ex is IO.IOException or UnauthorizedAccessException) { status.Text = T("Could not save language preference."); }
+        Refresh(true);
+    }
+    private void Retranslate(Node node)
+    {
+        if (node.HasMeta("source_text"))
+        {
+            var text = T(node.GetMeta("source_text").AsString());
+            if (node is Label label) label.Text = text;
+            else if (node is Button button) button.Text = text;
+        }
+        if (node is LineEdit edit && node.HasMeta("source_placeholder")) edit.PlaceholderText = T(node.GetMeta("source_placeholder").AsString());
+        if (node is TabContainer tabs)
+            for (var i = 0; i < tabs.GetTabCount(); i++) tabs.SetTabTitle(i, T(tabs.GetChild(i).Name));
+        foreach (var child in node.GetChildren()) Retranslate(child);
+    }
+    private async void WriteDebugContext()
+    {
+        if (!debugSession || !loaded || capturing) return;
+        capturing = true;
+        try
+        {
+            var view = runner.Observe();
+            var context = new
+            {
+                UpdatedUtc = DateTime.UtcNow, ProcessId = System.Environment.ProcessId, Version = "0.2.1",
+                Language = catalog.Language, SelectedResident = selected, Place = view.Place, Tick = view.Tick,
+                Paused = paused, Busy = busy, NotebookOpen = notebook.Visible,
+                AiEnabled = aiEnabled, AiModel = OpenAiVoice.ModelId,
+                SaveFile = saves.FilePath, LogFile = ProjectSettings.GlobalizePath("res://artifacts/live/game.log"),
+                RecentConversation = view.Transcript.TakeLast(8).Select(l => new { l.Id, l.Tick, l.Speaker, Text = catalog.Line(l) })
+            };
+            var target = IO.Path.Combine(debugDirectory, "context.json");
+            IO.File.WriteAllText(target + ".tmp", JsonSerializer.Serialize(context, new JsonSerializerOptions { WriteIndented = true }));
+            IO.File.Move(target + ".tmp", target, true);
+            // Never capture the settings window: it may contain an API key in an edit field.
+            if (!notebook.Visible)
+            {
+                await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+                if (IsInsideTree()) GetViewport().GetTexture().GetImage().SavePng(IO.Path.Combine(debugDirectory, "screen.png"));
+            }
+        }
+        catch (Exception ex) when (ex is IO.IOException or UnauthorizedAccessException) { GD.PrintErr("Debug snapshot unavailable."); }
+        finally { capturing = false; }
     }
     private static void Clear(Node node) { foreach (var child in node.GetChildren()) { node.RemoveChild(child); child.QueueFree(); } }
     private void Refresh(bool forceTranscript = false)
     {
         if (!loaded) return;
-        var view = runner.Observe(); map.Present(view); clock.Text = view.Time + "\nTable bread: " + view.Bread;
-        pauseButton.Text = paused ? "Resume" : "Pause";
-        location.Text = view.PlaceName; atmosphere.Text = view.Atmosphere;
-        mode.Text = busy ? "Listening..." : aiEnabled ? $"AI voice · {voice.RequestsRemaining} requests left" : "Local dialogue · simulation-driven accounts";
+        var view = runner.Observe(); map.Present(view, catalog); clock.Text = catalog.Time(view.Tick) + "\n" + T("Table bread: " + view.Bread);
+        pauseButton.Text = T(paused ? "Resume" : "Pause");
+        location.Text = T(view.PlaceName); atmosphere.Text = T(view.Atmosphere);
+        mode.Text = T(busy ? "Listening..." : aiEnabled ? $"AI voice · {voice.RequestsRemaining} requests left" : "Local dialogue · simulation-driven accounts");
         Clear(nearby);
         var locals = view.Residents.Where(a => a.Place == view.Place).ToArray();
         foreach (var a in locals)
         {
-            var person = ButtonText((a.Id == selected ? "• " : "") + a.Name + "  /  " + a.Role, nearby, () => { if (!busy) { selected = a.Id; Refresh(); } });
+            var person = ButtonText((a.Id == selected ? "• " : "") + T(a.Name) + "  /  " + T(a.Role), nearby, () => { if (!busy) { selected = a.Id; Refresh(); } });
             person.Disabled = busy;
         }
         if (locals.Length == 0) LabelText("Nobody is here just now.", nearby, 15);
         var resident = view.Residents.First(a => a.Id == selected);
         var present = resident.Place == view.Place;
-        speaker.Text = present ? "Across from " + resident.Name : resident.Name + " has stepped away";
+        speaker.Text = T(present ? "Across from " + resident.Name : resident.Name + " has stepped away");
         Clear(choices);
         foreach (var choice in runner.Choices(selected))
         {
@@ -206,14 +289,16 @@ public partial class Main : Control
             b.Disabled = !choice.Enabled || busy;
         }
         question.Editable = present && !busy;
+        languagePicker.Disabled = busy;
+        if (debugSession) WriteDebugContext();
         if (forceTranscript || transcriptRevision != (view.Transcript.LastOrDefault()?.Id ?? 0))
         {
             Clear(transcript);
             foreach (var line in view.Transcript.TakeLast(30))
             {
                 var card = Column(transcript, 4);
-                LabelText(line.Speaker.ToUpperInvariant() + "   ·   " + SimulationRunner.FormatTime(line.Tick), card, 11, line.Speaker == "You" ? "93b5a4" : "d5b778");
-                LabelText(line.Text, card, 18);
+                LabelText(T(line.Speaker).ToUpperInvariant() + "   ·   " + catalog.Time(line.Tick), card, 11, line.Speaker == "You" ? "93b5a4" : "d5b778");
+                LabelText(catalog.Line(line), card, 18, translate: false);
             }
             transcriptRevision = view.Transcript.LastOrDefault()?.Id ?? 0;
             CallDeferred(nameof(ScrollConversation));
@@ -231,7 +316,7 @@ public partial class Main : Control
         var result = runner.Travel(place);
         var local = runner.Observe().Residents.FirstOrDefault(a => a.Place == place);
         if (local != null) selected = local.Id;
-        Save(); Refresh(); status.Text = result.Message;
+        Save(); Refresh(); status.Text = T(result.Message);
     }
     private void Ask() { if (!busy && loaded && !string.IsNullOrWhiteSpace(question.Text)) _ = Speak(null); }
     private async Task Speak(string? topic)
@@ -239,24 +324,29 @@ public partial class Main : Control
         if (busy || !loaded) return;
         var spokenTo = selected;
         var result = topic == null ? runner.Ask(spokenTo, question.Text) : runner.Talk(spokenTo, topic);
-        if (!result.Success) { status.Text = result.Message; return; }
+        if (!result.Success) { status.Text = T(result.Message); return; }
         question.Text = "";
         Save(); Refresh(true);
-        if (!aiEnabled) { status.Text = "The conversation is recorded here. Your notebook keeps witnessed events and your own notes."; return; }
-        var context = runner.GetDialogueContext(spokenTo);
+        if (!aiEnabled) { status.Text = T("The conversation is recorded here. Your notebook keeps witnessed events and your own notes."); return; }
+        var context = runner.GetDialogueContext(spokenTo, catalog.Language);
         if (context == null) return;
         busy = true; Refresh();
         try
         {
             var voiced = await voice.RenderAsync(context, apiKey, model, lifetime.Token);
             if (lifetime.IsCancellationRequested) return;
-            if (voiced.Generated) runner.ApplyVoice(context.LineId, voiced.Text);
-            status.Text = voiced.Notice; Save();
+            if (voiced.Generated) runner.ApplyVoice(context.LineId, voiced.Text, context.Language);
+            status.Text = T(voiced.Notice); Save();
         }
         finally { busy = false; if (!lifetime.IsCancellationRequested) Refresh(true); }
     }
     public override void _Process(double delta)
     {
+        if (debugSession && loaded)
+        {
+            debugElapsed += delta;
+            if (debugElapsed >= 5) { debugElapsed = 0; WriteDebugContext(); }
+        }
         if (!loaded || paused || busy || notebook.Visible) return;
         elapsed += Math.Min(delta, 1);
         if (elapsed < 8) return;
@@ -269,7 +359,7 @@ public partial class Main : Control
         Clear(journal);
         foreach (var entry in runner.Observe().Journal)
         {
-            LabelText(entry.Source + "  ·  " + SimulationRunner.FormatTime(entry.Tick), journal, 13, "d5b778");
+            LabelText(entry.Source + "  ·  " + catalog.Time(entry.Tick), journal, 13, "d5b778");
             LabelText(entry.Text, journal, 17);
         }
         notebook.PopupCentered();
@@ -283,17 +373,17 @@ public partial class Main : Control
             runner = new SimulationRunner((uint)System.Security.Cryptography.RandomNumberGenerator.GetInt32(1, int.MaxValue));
             selected = "neri"; notes.Text = ""; elapsed = 0; paused = false;
             Save(); notebook.Hide(); Refresh(true);
-            status.Text = "A new beginning. Your previous neighborhood was archived beside the save.";
+            status.Text = T("A new beginning. Your previous neighborhood was archived beside the save.");
         }
         catch (Exception ex) when (ex is IO.IOException or UnauthorizedAccessException)
-        { status.Text = "Could not archive this neighborhood. The current world is unchanged."; }
+        { status.Text = T("Could not archive this neighborhood. The current world is unchanged."); }
     }
     private void Save()
     {
         if (!loaded) return;
         try { saves.Save(runner); }
         catch (Exception ex) when (ex is IO.IOException or UnauthorizedAccessException)
-        { status.Text = "Could not save. Check the save folder and free disk space."; }
+        { status.Text = T("Could not save. Check the save folder and free disk space."); }
     }
     public override void _UnhandledKeyInput(InputEvent @event)
     {
@@ -313,14 +403,14 @@ public partial class Main : Control
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         await Speak("chair");
         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
-        GetViewport().GetTexture().GetImage().SavePng("res://artifacts/conversation-desktop.png");
+        GetViewport().GetTexture().GetImage().SavePng("res://artifacts/conversation-" + catalog.Language + "-desktop.png");
         Travel("landing"); await Speak("parcel");
         Travel("bakery"); await Speak("parcel");
         OpenNotebook(); notebook.Hide();
         DisplayServer.WindowSetSize(new Vector2I(1160, 840));
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
-        GetViewport().GetTexture().GetImage().SavePng("res://artifacts/conversation-minimum.png");
+        GetViewport().GetTexture().GetImage().SavePng("res://artifacts/conversation-" + catalog.Language + "-minimum.png");
         Save(); GD.Print("NATIVE C# VIEWER SMOKE PASS"); GetTree().Quit();
     }
 }

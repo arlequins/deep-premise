@@ -1,7 +1,9 @@
+using DeepPremise.Core.Localization;
+
 namespace DeepPremise.Core;
 
 public sealed record DialogueContext(int LineId, string Name, string Role, string Voice, string Place,
-    string Question, string GroundedReply, IReadOnlyList<string> KnownAccounts, IReadOnlyList<ConversationLine> RecentConversation);
+    string Question, string GroundedReply, IReadOnlyList<string> KnownAccounts, IReadOnlyList<ConversationLine> RecentConversation, string Language = "en");
 
 public sealed partial class SimulationRunner
 {
@@ -37,7 +39,7 @@ public sealed partial class SimulationRunner
         if (ownWords is { Length: > 400 }) return new(false, "Keep the question under 400 characters.");
         var repeated = state.Questions.Any(q => q.AgentId == agentId && q.Topic == topic && state.Tick - q.Tick < 8);
         state.Questions.Add(new RecentQuestion(agentId, topic, state.Tick));
-        Line("You", ownWords ?? choice.Text);
+        Line("You", ownWords ?? choice.Text, ownWords != null);
         string reply;
         switch (topic)
         {
@@ -92,10 +94,7 @@ public sealed partial class SimulationRunner
     public ActionResult Ask(string agentId, string question)
     {
         if (string.IsNullOrWhiteSpace(question) || question.Length > 400) return new(false, "Write a question of 1-400 characters.");
-        var q = question.ToLowerInvariant();
-        var topic = q.Contains("parcel") || q.Contains("blue") || q.Contains("package") ? "parcel" :
-            q.Contains("remember") || q.Contains("memory") || q.Contains("witness") || q.Contains("sure") ? "memory" :
-            q.Contains("chair") || q.Contains("bill") || q.Contains("identity") || q.Contains("owe") ? "chair" : "day";
+        var topic = TextCatalog.TopicFor(question);
         // Free text is conversation only. It cannot silently authorize a delivery or resource transfer.
         return Talk(agentId, topic, question);
     }
@@ -153,7 +152,7 @@ public sealed partial class SimulationRunner
         };
         return variants[Next(variants.Length)];
     }
-    public DialogueContext? GetDialogueContext(string agentId)
+    public DialogueContext? GetDialogueContext(string agentId, string language = "en")
     {
         var a = state.Agents.FirstOrDefault(a => a.Id == agentId);
         var line = state.Transcript.LastOrDefault();
@@ -167,17 +166,19 @@ public sealed partial class SimulationRunner
             "neri" => "Precise about who said what. Warm without offering easy certainty.",
             _ => "New to the neighborhood. Curious, slightly self-conscious. Asks ordinary questions."
         };
-        return new(line.Id, a.Name, a.Role, voice, Places.Single(p => p.Id == a.Place).Name,
-            state.Transcript.LastOrDefault(l => l.Speaker == "You")?.Text ?? "", line.Text,
+        var catalog = new TextCatalog(language);
+        return new(line.Id, catalog.Text(a.Name), catalog.Text(a.Role), voice, catalog.Text(Places.Single(p => p.Id == a.Place).Name),
+            state.Transcript.LastOrDefault(l => l.Speaker == "You")?.Text ?? "", catalog.Text(line.Text),
             a.Knowledge.Where(k => k.Strength >= 2).Select(k => $"{(k.Witnessed ? "Recollection" : "Hearsay from " + k.Source)}: {k.Claim}").ToArray(),
-            state.Transcript.TakeLast(10).ToArray());
+            state.Transcript.TakeLast(10).Select(l => l with { Text = catalog.Line(l), Voices = null }).ToArray(), catalog.Language);
     }
-    public bool ApplyVoice(int lineId, string text)
+    public bool ApplyVoice(int lineId, string text, string language = "en")
     {
-        if (string.IsNullOrWhiteSpace(text) || text.Length > 1200) return false;
+        if (string.IsNullOrWhiteSpace(text) || text.Length > 1200 || language is not ("en" or "ko")) return false;
         var index = state.Transcript.FindIndex(l => l.Id == lineId && l.Speaker != "You");
         if (index < 0) return false;
-        state.Transcript[index] = state.Transcript[index] with { Text = text.Trim() };
+        var voices = new Dictionary<string, string>(state.Transcript[index].Voices ?? []) { [language] = text.Trim() };
+        state.Transcript[index] = state.Transcript[index] with { Voices = voices };
         return true;
     }
 }

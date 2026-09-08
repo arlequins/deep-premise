@@ -1,0 +1,794 @@
+{
+  "entries": [
+    {
+      "en": "Mara",
+      "ko": "마라"
+    },
+    {
+      "en": "Iven",
+      "ko": "이벤"
+    },
+    {
+      "en": "Sela",
+      "ko": "셀라"
+    },
+    {
+      "en": "Orren",
+      "ko": "오렌"
+    },
+    {
+      "en": "Neri",
+      "ko": "네리"
+    },
+    {
+      "en": "Tavi",
+      "ko": "타비"
+    },
+    {
+      "en": "You",
+      "ko": "나"
+    },
+    {
+      "en": "Baker",
+      "ko": "제빵사"
+    },
+    {
+      "en": "Carrier",
+      "ko": "운반인"
+    },
+    {
+      "en": "Table keeper",
+      "ko": "공동 식탁지기"
+    },
+    {
+      "en": "Mender",
+      "ko": "수선공"
+    },
+    {
+      "en": "Letter keeper",
+      "ko": "편지지기"
+    },
+    {
+      "en": "New mender",
+      "ko": "새로 온 수선공"
+    },
+    {
+      "en": "The Common Table",
+      "ko": "공동 식탁"
+    },
+    {
+      "en": "Mara's Oven",
+      "ko": "마라의 화덕"
+    },
+    {
+      "en": "The Mending Room",
+      "ko": "수선방"
+    },
+    {
+      "en": "Reed Landing",
+      "ko": "갈대 나루"
+    },
+    {
+      "en": "Common table",
+      "ko": "공동 식탁"
+    },
+    {
+      "en": "The oven",
+      "ko": "화덕"
+    },
+    {
+      "en": "Mending room",
+      "ko": "수선방"
+    },
+    {
+      "en": "Reed landing",
+      "ko": "갈대 나루"
+    },
+    {
+      "en": "COMMON TABLE",
+      "ko": "공동 식탁"
+    },
+    {
+      "en": "THE OVEN",
+      "ko": "화덕"
+    },
+    {
+      "en": "MENDING ROOM",
+      "ko": "수선방"
+    },
+    {
+      "en": "REED LANDING",
+      "ko": "갈대 나루"
+    },
+    {
+      "en": "THE REED QUARTER",
+      "ko": "갈대 동네"
+    },
+    {
+      "en": "Six cups. One empty chair. Someone has set a place for you.",
+      "ko": "찻잔 여섯 개, 빈 의자 하나. 누군가 당신의 자리를 마련해 두었다."
+    },
+    {
+      "en": "The window is open. Warm air carries the smell of orange peel.",
+      "ko": "창문이 열려 있다. 따뜻한 공기에 귤껍질 향이 실려 온다."
+    },
+    {
+      "en": "A kettle ticks on a cold stove. Two coats hang from the same peg.",
+      "ko": "식은 난로 위에서 주전자가 딱딱거린다. 같은 못에 외투 두 벌이 걸려 있다."
+    },
+    {
+      "en": "The water is close enough to hear beneath the boards.",
+      "ko": "발밑의 널빤지 아래로 물소리가 들린다."
+    },
+    {
+      "en": "Lights linger behind the shutters. The paths are quiet.",
+      "ko": "덧문 뒤로 불빛이 남아 있다. 길은 고요하다."
+    },
+    {
+      "en": "Chairs scrape the courtyard stones. It is time to eat together.",
+      "ko": "마당의 돌바닥에 의자 끄는 소리가 난다. 함께 밥을 먹을 시간이다."
+    },
+    {
+      "en": "Keeps glancing at the bread.",
+      "ko": "자꾸 빵 쪽을 바라본다."
+    },
+    {
+      "en": "Has pulled up a chair.",
+      "ko": "의자를 끌어다 앉았다."
+    },
+    {
+      "en": "Getting on with the day.",
+      "ko": "하루의 일을 하고 있다."
+    },
+    {
+      "en": "How has your day been?",
+      "ko": "오늘 하루는 어땠어요?"
+    },
+    {
+      "en": "Have you seen the blue parcel?",
+      "ko": "파란 꾸러미를 보셨나요?"
+    },
+    {
+      "en": "Who is the empty chair for?",
+      "ko": "저 빈 의자는 누구 자리인가요?"
+    },
+    {
+      "en": "Do you remember that yourself?",
+      "ko": "직접 기억하는 일인가요?"
+    },
+    {
+      "en": "Share a loaf and sit a while.",
+      "ko": "빵 한 덩이를 나누며 잠시 머문다."
+    },
+    {
+      "en": "Take two loaves to the mending room.",
+      "ko": "수선방에 빵 두 덩이를 가져다주세요."
+    },
+    {
+      "en": "Take two loaves. Ask Neri to meet you there.",
+      "ko": "빵 두 덩이를 가져가고, 네리도 그곳에서 만나주세요."
+    },
+    {
+      "en": "Offer to acknowledge the east chair's bill.",
+      "ko": "동쪽 의자의 청구서를 함께 확인하겠다고 한다."
+    },
+    {
+      "en": "Tell {a} what {b} said.",
+      "ko": "{a}에게 {b}의 말을 전한다."
+    },
+    {
+      "en": "Walk over to them first.",
+      "ko": "먼저 그 사람이 있는 곳으로 가세요."
+    },
+    {
+      "en": "That is not possible just now.",
+      "ko": "지금은 할 수 없는 일입니다."
+    },
+    {
+      "en": "Keep the question under 400 characters.",
+      "ko": "질문은 400자 이내로 적어주세요."
+    },
+    {
+      "en": "Write a question of 1-400 characters.",
+      "ko": "질문을 1~400자로 적어주세요."
+    },
+    {
+      "en": "You brought the heel. That is the best part. Don't let Mara hear me say that; she'll start charging for it.",
+      "ko": "빵 끝부분을 가져왔군요. 그게 제일 맛있죠. 마라에겐 비밀이에요. 알면 따로 값을 매길 테니까."
+    },
+    {
+      "en": "Thank you. You didn't ask who used to sit here first. I appreciate that.",
+      "ko": "고마워요. 예전에 여기 누가 앉았는지부터 묻지 않으셨네요. 그게 참 고마워요."
+    },
+    {
+      "en": "Break it in the middle. There. Now neither of us has to decide which piece was meant for whom.",
+      "ko": "가운데를 갈라요. 그렇게요. 이제 어느 쪽이 누구 몫이었는지 정하지 않아도 되겠네요."
+    },
+    {
+      "en": "Neri as well? All right. Tell her to keep the wrapping this time. I'll take the bread.",
+      "ko": "네리도요? 좋아요. 이번엔 포장지를 남겨 달라고 전해주세요. 빵은 제가 가져갈게요."
+    },
+    {
+      "en": "Two loaves, the mending room. I can carry that. If they ask whether it arrived, ask who was there.",
+      "ko": "두 덩이, 수선방. 가져갈 수 있어요. 도착했는지 묻거든, 그 자리에 누가 있었는지 물어보세요."
+    },
+    {
+      "en": "Stand here a moment. Yes, beside me. There... the ink has stopped looking like someone else's trouble. Thank you.",
+      "ko": "잠깐 여기 서주세요. 네, 제 옆에요. 이제… 저 잉크가 남의 골칫거리처럼 보이지 않네요. 고마워요."
+    },
+    {
+      "en": "{a} said that? I was there.",
+      "ko": "{a}의 말이라고요? 저는 그 자리에 있었어요."
+    },
+    {
+      "en": "Please don't put those two things in the same sentence.",
+      "ko": "그 두 이야기를 하나로 섞지는 말아주세요."
+    },
+    {
+      "en": "I hadn't heard it put that way. If I repeat it, I will say it came from {a}, through you.",
+      "ko": "그렇게는 처음 듣네요. 다른 사람에게 전한다면, 당신을 통해 들은 {a}의 말이라고 할게요."
+    },
+    {
+      "en": "You asked me just now. Has someone told you otherwise?",
+      "ko": "방금도 물었잖아요. 누가 다른 얘기를 하던가요?"
+    },
+    {
+      "en": "Again? Give me a moment.",
+      "ko": "다시요? 잠깐만요."
+    },
+    {
+      "en": "I can remember the weight of it against my hip. Where I put it... no, that part won't come when you ask.",
+      "ko": "허리에 닿던 무게는 기억나요. 어디 두었는지는… 아니, 물으니까 그 부분이 떠오르지 않네요."
+    },
+    {
+      "en": "A blue parcel? I don't have a story about that. Try the landing. Don't tell them I said I saw it.",
+      "ko": "파란 꾸러미요? 그건 아는 얘기가 없어요. 나루에 가보세요. 제가 봤다고 했다는 말은 하지 마시고요."
+    },
+    {
+      "en": "The words are familiar, but I can't quite find myself in them.",
+      "ko": "익숙한 말인데, 그 안에 제가 있었는지는 잘 모르겠어요."
+    },
+    {
+      "en": "I was there.",
+      "ko": "저는 그 자리에 있었어요."
+    },
+    {
+      "en": "{a} told me this; I didn't see it.",
+      "ko": "{a}에게 들었어요. 직접 본 건 아니에요."
+    },
+    {
+      "en": "Would you like tea while you wait?",
+      "ko": "기다리는 동안 차라도 드릴까요?"
+    },
+    {
+      "en": "I know who told me. That is not quite the same as remembering, is it?",
+      "ko": "누가 말해줬는지는 알아요. 기억한다는 것과는 좀 다르겠죠?"
+    },
+    {
+      "en": "A moment ago I would have said yes. Now I can remember saying it more clearly than doing it. Please don't finish the story for me.",
+      "ko": "조금 전이라면 그렇다고 했을 거예요. 지금은 그 일을 한 것보다, 했다고 말한 게 더 선명하네요. 제 대신 이야기의 끝을 맺지는 말아주세요."
+    },
+    {
+      "en": "My hands do. The rest depends on who I sit with. That sounded odd to you, didn't it? Never mind. Ask Sela what she saw.",
+      "ko": "손은 기억해요. 나머지는 누구와 앉아 있느냐에 달렸고요. 이상하게 들렸죠? 됐어요. 셀라에게 뭘 봤는지 물어보세요."
+    },
+    {
+      "en": "I wrote it down before we left the table. I can show you the words. I can't lend you the morning.",
+      "ko": "식탁에서 일어나기 전에 적어두었어요. 글은 보여드릴 수 있지만, 그 아침을 빌려드릴 수는 없죠."
+    },
+    {
+      "en": "Some things feel older than I am. Orren says not to throw them away just because they don't fit yet.",
+      "ko": "어떤 것들은 저보다 오래된 것 같아요. 오렌은 아직 맞지 않는다고 버리지는 말래요."
+    },
+    {
+      "en": "Yes. At least, I was there when it happened. Stay a little. It is easier to tell with someone listening.",
+      "ko": "네. 적어도 그 일이 일어날 때 거기 있었어요. 조금만 더 계세요. 들어주는 사람이 있으면 말하기가 쉬워져요."
+    },
+    {
+      "en": "Mine, they say. I arrived yesterday. This morning Mara brought me a bill from last winter. She wasn't trying to cheat me. That is the part I don't understand.",
+      "ko": "제 자리래요. 전 어제 왔는데, 오늘 아침 마라가 지난겨울 청구서를 가져왔어요. 저를 속이려던 건 아니었어요. 바로 그게 이해되지 않아요."
+    },
+    {
+      "en": "It's mine now. The bill hasn't vanished, but nobody is asking me to remember buying the bread anymore. You were there. That seems to be enough.",
+      "ko": "이젠 제 자리예요. 청구서가 사라진 건 아니지만, 아무도 제가 빵을 산 일을 기억하라고 하진 않아요. 당신이 곁에 있었죠. 그걸로 충분한가 봐요."
+    },
+    {
+      "en": "The east chair still owes me two loaves. No, not Tavi. The chair. I wouldn't ask a stranger to remember a meal they never ate.",
+      "ko": "동쪽 의자는 아직 제게 빵 두 덩이를 빚졌어요. 아뇨, 타비 말고 의자요. 낯선 사람에게 먹지도 않은 식사를 기억하라고 하진 않죠."
+    },
+    {
+      "en": "Tavi has the east place. I moved the coat to make room. The old one? Leave it there. Some mornings it is the right size again.",
+      "ko": "동쪽 자리는 타비 몫이에요. 자리를 내주려고 외투를 옮겼죠. 예전 외투요? 그냥 두세요. 어떤 아침엔 다시 몸에 맞거든요."
+    },
+    {
+      "en": "Leave it turned towards the table. An empty chair and a spare chair are very different things.",
+      "ko": "식탁 쪽을 향하게 두세요. 빈 의자와 남는 의자는 전혀 다른 거예요."
+    },
+    {
+      "en": "I can change the name on the bill. That isn't the difficult part. Someone has to stand beside the new name when I read it.",
+      "ko": "청구서의 이름은 바꿀 수 있어요. 어려운 건 그게 아니죠. 제가 읽을 때 누군가는 새 이름 곁에 서 있어야 해요."
+    },
+    {
+      "en": "I don't sit there. Last time I did, people started thanking me for a repair I couldn't do. Orren had to come and untangle it.",
+      "ko": "전 거기 안 앉아요. 지난번엔 제가 할 줄도 모르는 수선을 해줬다며 다들 고마워하더군요. 오렌이 와서 풀어줘야 했죠."
+    },
+    {
+      "en": "I keep losing my place in the conversation. Have you eaten? I haven't, yet.",
+      "ko": "자꾸 무슨 얘기를 하던 건지 놓치네요. 식사는 하셨어요? 전 아직이에요."
+    },
+    {
+      "en": "Something small:",
+      "ko": "사소한 일이긴 한데요."
+    },
+    {
+      "en": "I heard from {a}:",
+      "ko": "{a}에게 들었는데요."
+    },
+    {
+      "en": "The first batch caught on the bottom. Orren calls that a crust with ambition. He still took two.",
+      "ko": "첫 판은 바닥이 좀 눌었어요. 오렌은 포부가 큰 빵 껍질이라더군요. 그래도 두 개나 가져갔죠."
+    },
+    {
+      "en": "I had an argument with the dough. It rose anyway. Sit down before I give you a job.",
+      "ko": "반죽이랑 한바탕 다퉜어요. 그래도 부풀긴 하더군요. 일 시키기 전에 얼른 앉아요."
+    },
+    {
+      "en": "Someone returned my bowl with a flower in it. No name. I prefer that kind of accounting.",
+      "ko": "누가 제 그릇에 꽃 한 송이를 담아 돌려줬어요. 이름도 없이요. 저는 그런 셈법이 더 좋아요."
+    },
+    {
+      "en": "I took the longer path. I was supposed to meet someone along it. I didn't. Still, it was the right path.",
+      "ko": "먼 길로 갔어요. 가는 길에 누군가를 만나기로 했거든요. 만나진 못했죠. 그래도 맞는 길이었어요."
+    },
+    {
+      "en": "A quiet morning. I have a parcel to remember and a shoulder that would rather forget it.",
+      "ko": "조용한 아침이에요. 기억해야 할 꾸러미가 하나 있고, 어깨는 차라리 잊고 싶어 하네요."
+    },
+    {
+      "en": "Sela says I walk too fast. I say the water walks too slowly. Neither of us has convinced it.",
+      "ko": "셀라는 제가 너무 빨리 걷는대요. 전 물이 너무 느리게 걷는다고 하죠. 물은 누구 말도 안 듣지만요."
+    },
+    {
+      "en": "Neri set six cups out. There were five of us. Nobody moved the sixth. Would you like it?",
+      "ko": "네리가 찻잔을 여섯 개 놓았어요. 우린 다섯이었는데요. 여섯 번째 잔은 아무도 치우지 않았죠. 쓰실래요?"
+    },
+    {
+      "en": "I found a button under your chair. Keep it until someone misses it.",
+      "ko": "당신 의자 밑에서 단추를 찾았어요. 누가 찾을 때까지 갖고 계세요."
+    },
+    {
+      "en": "It's a good day when everyone complains about the tea. It means they all came.",
+      "ko": "다들 차가 맛없다고 투덜대면 좋은 날이에요. 모두 왔다는 뜻이니까요."
+    },
+    {
+      "en": "I mended the kettle. It whistles a different note now. Mara says I have repaired the wrong part.",
+      "ko": "주전자를 고쳤어요. 이제 다른 음으로 울죠. 마라는 엉뚱한 데를 고쳤다네요."
+    },
+    {
+      "en": "Tavi is good with their hands. They ask permission from the tools. The tools seem to like that.",
+      "ko": "타비는 손재주가 좋아요. 도구에게 먼저 허락을 구하더군요. 도구들도 마음에 들어 하는 것 같아요."
+    },
+    {
+      "en": "Hold that end, would you? There. You have now done half my morning's work.",
+      "ko": "그쪽 끝 좀 잡아주시겠어요? 됐어요. 제 오전 일의 절반은 벌써 해주셨네요."
+    },
+    {
+      "en": "Three letters, two signatures, one person asking whether a promise can be returned unopened.",
+      "ko": "편지 세 통, 서명 두 개. 그리고 약속도 뜯지 않은 채 돌려보낼 수 있냐고 묻는 사람 하나요."
+    },
+    {
+      "en": "I keep the crossings-out. Sometimes they tell me more than the names.",
+      "ko": "저는 지운 흔적도 남겨둬요. 가끔은 이름보다 더 많은 말을 해주거든요."
+    },
+    {
+      "en": "You don't have to write everything down. Leave yourself something to ask tomorrow.",
+      "ko": "모든 걸 적을 필요는 없어요. 내일 물어볼 것도 남겨두세요."
+    },
+    {
+      "en": "Orren showed me how to mend a hinge. My hands knew the last part before he said it. Does that happen here?",
+      "ko": "오렌이 경첩 고치는 법을 알려줬어요. 마지막 부분은 말해주기도 전에 손이 알고 있더라고요. 여기선 그런 일이 있나요?"
+    },
+    {
+      "en": "I slept well. Someone had left a coat my size. I haven't asked whose it was.",
+      "ko": "잘 잤어요. 누군가 제 몸에 맞는 외투를 두고 갔더군요. 누구 것인지는 아직 안 물어봤어요."
+    },
+    {
+      "en": "I keep introducing myself. People are kind about it. Some of them look relieved.",
+      "ko": "계속 제 소개를 하고 있어요. 다들 친절하게 받아주죠. 몇몇은 안도하는 것 같기도 해요."
+    },
+    {
+      "en": "The blue parcel was left beneath the landing bench.",
+      "ko": "파란 꾸러미는 나루 벤치 아래에 놓여 있었어요."
+    },
+    {
+      "en": "The blue parcel was left beside the cold stove.",
+      "ko": "파란 꾸러미는 식은 난로 옆에 놓여 있었어요."
+    },
+    {
+      "en": "The blue parcel was left under the bakery window.",
+      "ko": "파란 꾸러미는 빵집 창문 아래에 놓여 있었어요."
+    },
+    {
+      "en": "Iven carried a blue parcel towards the mending room.",
+      "ko": "이벤이 파란 꾸러미를 들고 수선방 쪽으로 갔어요."
+    },
+    {
+      "en": "A blue parcel was meant for the mending room.",
+      "ko": "파란 꾸러미는 수선방으로 보낼 물건이었어요."
+    },
+    {
+      "en": "Someone said the blue parcel had already reached the mending room.",
+      "ko": "파란 꾸러미는 이미 수선방에 도착했다는 말이 있었어요."
+    },
+    {
+      "en": "Take the chair by the window. If someone tells you something curious, ask someone else before writing it down as fact.",
+      "ko": "창가 의자에 앉으세요. 흥미로운 이야기를 듣거든, 사실로 적기 전에 다른 사람에게도 물어보세요."
+    },
+    {
+      "en": "You are early. Good. There is bread on the table, and nobody has decided whose morning it is yet.",
+      "ko": "일찍 오셨네요. 잘됐어요. 식탁에 빵이 있고, 아직 누구의 아침인지도 정해지지 않았거든요."
+    },
+    {
+      "en": "Iven left {n} loaves at The Mending Room.",
+      "ko": "이벤이 수선방에 빵 {n}덩이를 두고 갔다."
+    },
+    {
+      "en": "I was there when the bread arrived. I kept one corner of the wrapping for you.",
+      "ko": "빵이 도착할 때 제가 있었어요. 포장지 한 귀퉁이를 남겨두었습니다."
+    },
+    {
+      "en": "Mara left four warm loaves for the common table.",
+      "ko": "마라가 공동 식탁에 따뜻한 빵 네 덩이를 두었다."
+    },
+    {
+      "en": "Tavi received another bill addressed to the east chair.",
+      "ko": "타비가 동쪽 의자 앞으로 온 청구서를 또 받았다."
+    },
+    {
+      "en": "{a} put an extra bowl beside {b}.",
+      "ko": "{a}의 손이 {b} 옆에 그릇 하나를 더 놓았다."
+    },
+    {
+      "en": "Sela told the old joke about the rain. Orren laughed before the ending.",
+      "ko": "셀라가 비에 관한 오래된 농담을 했다. 오렌은 끝을 듣기도 전에 웃었다."
+    },
+    {
+      "en": "{a} gave {b} the last piece of a loaf without asking for a name on the receipt.",
+      "ko": "{a}의 손에서 마지막 빵 조각이 {b}에게 건네졌다. 영수증에 쓸 이름은 묻지 않았다."
+    },
+    {
+      "en": "{a} stopped speaking when {b} supplied a different ending to the same story.",
+      "ko": "{b}의 입에서 같은 이야기의 다른 결말이 나오자, {a}의 말이 끊겼다."
+    },
+    {
+      "en": "{a} saved a warm cup for {b}.",
+      "ko": "{a}의 손길이 {b} 몫의 따뜻한 차 한 잔을 남겨두었다."
+    },
+    {
+      "en": "{a} moved a chair closer to {b}.",
+      "ko": "{a}의 의자가 {b} 쪽으로 조금 가까워졌다."
+    },
+    {
+      "en": "{a} returned a neatly folded coat to {b}.",
+      "ko": "{a}의 손에서 곱게 접힌 외투가 {b}에게 돌아갔다."
+    },
+    {
+      "en": "{a} left the last orange for {b}.",
+      "ko": "{a}의 손길이 마지막 귤을 {b} 몫으로 남겨두었다."
+    },
+    {
+      "en": "You shared bread with {a} and stayed for the conversation.",
+      "ko": "당신은 {a} 옆에 머물며 빵과 이야기를 나눴다."
+    },
+    {
+      "en": "You stood beside Tavi while the east chair's bill was acknowledged.",
+      "ko": "동쪽 의자의 청구서를 확인하는 동안 당신은 타비 곁에 서 있었다."
+    },
+    {
+      "en": "Neri's note",
+      "ko": "네리의 쪽지"
+    },
+    {
+      "en": "{a}'s receipt",
+      "ko": "{a}의 수령 확인"
+    },
+    {
+      "en": "What you saw",
+      "ko": "직접 본 일"
+    },
+    {
+      "en": "Your walk",
+      "ko": "걸으며 본 풍경"
+    },
+    {
+      "en": "That place is not nearby.",
+      "ko": "근처에 없는 장소입니다."
+    },
+    {
+      "en": "You are already here.",
+      "ko": "이미 이곳에 있습니다."
+    },
+    {
+      "en": "You take the short walk.",
+      "ko": "가까운 길을 걸어갑니다."
+    },
+    {
+      "en": "The notebook holds 5,000 characters.",
+      "ko": "수첩은 5,000자까지 적을 수 있습니다."
+    },
+    {
+      "en": "Notebook saved.",
+      "ko": "수첩을 저장했습니다."
+    },
+    {
+      "en": "A chair. A conversation. A different account of the same morning.",
+      "ko": "의자 하나, 대화 하나. 같은 아침을 다르게 기억하는 사람들."
+    },
+    {
+      "en": "Pause",
+      "ko": "일시정지"
+    },
+    {
+      "en": "Resume",
+      "ko": "계속"
+    },
+    {
+      "en": "Notebook / AI",
+      "ko": "수첩 / AI"
+    },
+    {
+      "en": "WITHIN EARSHOT",
+      "ko": "곁에 있는 사람"
+    },
+    {
+      "en": "Sit quietly for an hour",
+      "ko": "한 시간 동안 조용히 앉아 있기"
+    },
+    {
+      "en": "Local dialogue · no AI connection needed",
+      "ko": "로컬 대화 · AI 연결 없이도 플레이 가능"
+    },
+    {
+      "en": "SOMETHING TO SAY",
+      "ko": "건넬 말"
+    },
+    {
+      "en": "Ask in your own words...",
+      "ko": "하고 싶은 말을 적어보세요…"
+    },
+    {
+      "en": "Ask",
+      "ko": "묻기"
+    },
+    {
+      "en": "Listen, compare accounts, and let a little time pass. Space: pause.",
+      "ko": "이야기를 듣고 비교하며 시간을 보내세요. Space: 일시정지"
+    },
+    {
+      "en": "Notebook & dialogue",
+      "ko": "수첩과 대화"
+    },
+    {
+      "en": "Your notes",
+      "ko": "나의 메모"
+    },
+    {
+      "en": "Observations",
+      "ko": "관찰 기록"
+    },
+    {
+      "en": "AI voice",
+      "ko": "AI 대화"
+    },
+    {
+      "en": "Leave room for another version.",
+      "ko": "다른 이야기가 들어올 자리도 남겨두세요."
+    },
+    {
+      "en": "Save notebook",
+      "ko": "수첩 저장"
+    },
+    {
+      "en": "Start another neighborhood · archive this one",
+      "ko": "현재 동네를 보관하고 새로 시작"
+    },
+    {
+      "en": "A voice, not a storyteller",
+      "ko": "세계를 결정하지 않고, 목소리를 더합니다"
+    },
+    {
+      "en": "Optional: use OpenAI to express a resident's reply in natural language. Simulation rules still determine events, memories and actions. Local dialogue always works without AI.",
+      "ko": "원한다면 OpenAI로 주민의 말을 더 자연스럽게 표현할 수 있습니다. 사건·기억·행동은 시뮬레이션이 결정합니다. AI가 없어도 로컬 대화로 플레이할 수 있습니다."
+    },
+    {
+      "en": "When enabled, your question, recent conversation and that resident's known accounts are sent to OpenAI. API usage may incur charges. Maximum 20 requests per session; the key is kept only in memory.",
+      "ko": "활성화하면 질문, 최근 대화, 해당 주민이 아는 이야기가 OpenAI로 전송됩니다. API 요금이 발생할 수 있습니다. 실행당 최대 20회 요청하며, 키는 메모리에만 보관합니다."
+    },
+    {
+      "en": "OpenAI API key",
+      "ko": "OpenAI API 키"
+    },
+    {
+      "en": "Model ID from your OpenAI API account",
+      "ko": "OpenAI API 모델 ID"
+    },
+    {
+      "en": "Disabled",
+      "ko": "꺼짐"
+    },
+    {
+      "en": "Enable for this session",
+      "ko": "이번 실행에서 활성화"
+    },
+    {
+      "en": "Enter a key and a model ID.",
+      "ko": "API 키와 모델 ID를 입력해주세요."
+    },
+    {
+      "en": "Enabled. No request is sent until you speak to a resident.",
+      "ko": "활성화했습니다. 주민에게 말을 걸기 전에는 요청하지 않습니다."
+    },
+    {
+      "en": "Use local dialogue",
+      "ko": "로컬 대화 사용"
+    },
+    {
+      "en": "Without AI, typed questions use topic matching. The conversation buttons give the full local interaction set. AI wording can be imperfect; it never edits simulation state.",
+      "ko": "AI를 끄면 입력한 질문을 주제별로 구분합니다. 대화 버튼으로 모든 로컬 상호작용을 이용할 수 있습니다. AI의 표현은 부정확할 수 있지만 시뮬레이션 상태를 바꾸지는 않습니다."
+    },
+    {
+      "en": "Table bread: {n}",
+      "ko": "식탁의 빵: {n}덩이"
+    },
+    {
+      "en": "Listening...",
+      "ko": "대답을 기다리는 중…"
+    },
+    {
+      "en": "AI voice · {n} requests left",
+      "ko": "AI 대화 · 남은 요청 {n}회"
+    },
+    {
+      "en": "Local dialogue · simulation-driven accounts",
+      "ko": "로컬 대화 · 시뮬레이션에 따른 이야기"
+    },
+    {
+      "en": "Nobody is here just now.",
+      "ko": "지금은 아무도 없습니다."
+    },
+    {
+      "en": "Across from {a}",
+      "ko": "{a}의 맞은편에서"
+    },
+    {
+      "en": "{a} has stepped away",
+      "ko": "{a}: 잠시 자리를 비웠습니다"
+    },
+    {
+      "en": "The conversation is recorded here. Your notebook keeps witnessed events and your own notes.",
+      "ko": "대화는 이곳에 남습니다. 수첩에는 직접 본 일과 나의 메모를 담을 수 있습니다."
+    },
+    {
+      "en": "A new beginning. Your previous neighborhood was archived beside the save.",
+      "ko": "새로 시작합니다. 이전 동네는 저장 파일 옆에 보관했습니다."
+    },
+    {
+      "en": "Could not archive this neighborhood. The current world is unchanged.",
+      "ko": "동네를 보관하지 못했습니다. 현재 플레이는 유지됩니다."
+    },
+    {
+      "en": "Could not save. Check the save folder and free disk space.",
+      "ko": "저장하지 못했습니다. 저장 폴더와 디스크 여유 공간을 확인해주세요."
+    },
+    {
+      "en": "The save could not be opened. Your original files are preserved.",
+      "ko": "저장 파일을 열지 못했습니다. 원본 파일은 보존되어 있습니다."
+    },
+    {
+      "en": "Unable to open the saved neighborhood. Please check the save folder.",
+      "ko": "저장된 동네를 열지 못했습니다. 저장 폴더를 확인해주세요."
+    },
+    {
+      "en": "Recovered the previous save. The damaged file was preserved.",
+      "ko": "이전 저장을 복구했습니다. 손상된 파일은 보존했습니다."
+    },
+    {
+      "en": "Local dialogue",
+      "ko": "로컬 대화"
+    },
+    {
+      "en": "AI busy; local dialogue used.",
+      "ko": "AI가 응답 중이어서 로컬 대화를 사용합니다."
+    },
+    {
+      "en": "Session AI limit reached. Local dialogue continues.",
+      "ko": "이번 실행의 AI 요청 한도에 도달했습니다. 로컬 대화로 계속합니다."
+    },
+    {
+      "en": "Local dialogue used between AI requests.",
+      "ko": "AI 요청 사이에는 로컬 대화를 사용합니다."
+    },
+    {
+      "en": "AI unavailable (HTTP {n}); local dialogue used.",
+      "ko": "AI 연결을 사용할 수 없습니다(HTTP {n}). 로컬 대화를 사용합니다."
+    },
+    {
+      "en": "AI response too large; local dialogue used.",
+      "ko": "AI 응답이 너무 커서 로컬 대화를 사용합니다."
+    },
+    {
+      "en": "AI voice · {n} requests left this session",
+      "ko": "AI 대화 · 이번 실행에서 {n}회 남음"
+    },
+    {
+      "en": "AI did not answer in time or returned unusable data; local dialogue used.",
+      "ko": "AI 응답을 받지 못했거나 사용할 수 없어 로컬 대화로 이어갑니다."
+    },
+    {
+      "en": "Language",
+      "ko": "언어"
+    },
+    {
+      "en": "Language saved.",
+      "ko": "언어 설정을 저장했습니다."
+    },
+    {
+      "en": "Could not save language preference.",
+      "ko": "언어 설정을 저장하지 못했습니다."
+    },
+    {
+      "en": "Luna only · no automatic model upgrade",
+      "ko": "Luna 전용 · 다른 모델로 자동 전환하지 않음"
+    },
+    {
+      "en": "Enter your OpenAI API key.",
+      "ko": "OpenAI API 키를 입력해주세요."
+    },
+    {
+      "en": "Debug session active · feedback context is recorded locally.",
+      "ko": "디버그 실행 중 · 피드백용 상황을 로컬에 기록합니다."
+    },
+    {
+      "en": "Day {n}",
+      "ko": "{n}일"
+    },
+    {
+      "en": "Korean",
+      "ko": "한국어"
+    }
+  ],
+  "topics": {
+    "parcel": [
+      "parcel",
+      "blue",
+      "package",
+      "꾸러미",
+      "소포",
+      "파란",
+      "파랑",
+      "보따리"
+    ],
+    "memory": [
+      "remember",
+      "memory",
+      "witness",
+      "sure",
+      "기억",
+      "목격",
+      "확실",
+      "직접 봤",
+      "직접 본"
+    ],
+    "chair": [
+      "chair",
+      "bill",
+      "identity",
+      "owe",
+      "의자",
+      "청구",
+      "정체",
+      "빚",
+      "자리"
+    ]
+  }
+}
