@@ -2,11 +2,11 @@
 
 A conversation-first simulation prototype. Six neighbors, four nearby places, and incomplete accounts of an ordinary morning.
 
-**Status:** local Windows prototype 0.2.1. This is a small playable experiment, not a finished Steam release.
+**Status:** local Windows prototype 0.3.0. This is a small playable experiment, not a finished Steam release.
 
 ## Play
 
-Extract `dist/Unseen-Order-0.2.1-Windows-x64.zip` and run `Unseen-Order.exe`. Keep the adjacent `.pck` and `data_*` directory with the executable. The portable package includes its .NET runtime; players do not install Godot, Python, or a development SDK.
+Extract `dist/Unseen-Order-0.3.0-Windows-x64.zip` and run `Unseen-Order.exe`. Keep the adjacent `.pck` and `data_*` directory with the executable. The portable package includes its .NET runtime; players do not install Godot, Python, or a development SDK.
 
 - Choose English or Korean in the top-right selector. The preference persists across restarts.
 - Choose a place on the map or with a location button.
@@ -92,3 +92,10 @@ An assistant can consult these files when you give feedback. This is not an exte
 Language changes never consume ticks or alter facts. Typed player text and notes stay verbatim. Existing authored conversations translate on display; new AI replies retain language-specific variants and their authored fallback. Older arbitrary AI prose without a canonical source remains verbatim.
 
 Luna reference: https://developers.openai.com/api/docs/models/gpt-5.6-luna
+
+
+## Longer conversations and playtest review
+
+Version 0.3.0 adds six recurring favors and twelve personal conversations with follow-up across days. Help, return visits, conflicting accounts, and separately arranged suppers create parallel reasons to speak with different residents. The notebook tracks only requests and thoughts the player has heard. Look around for local details; rest until morning from the notebook when ready.
+
+Detailed local playtest recording is enabled with the first player's explicit consent. Press **F8** to mark an expectation, surprise, confusion, or repetition. Run `tools/review-playtest.ps1` to verify and summarize the active recording. Full instructions and exact-state restoration are in [PLAYTESTING.md](docs/PLAYTESTING.md). Logs remain local and are excluded from Git and exports.

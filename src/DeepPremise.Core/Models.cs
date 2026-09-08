@@ -21,6 +21,7 @@ public sealed class WorldState
     public int Bread { get; set; } = 8;
     public int SharedMeals { get; set; }
     public int CompletedDeliveries { get; set; }
+    public NeighborhoodStories Stories { get; set; } = new();
 }
 
 public sealed class Agent
@@ -86,5 +87,5 @@ public sealed record DialogueChoice(string Id, string Text, bool Enabled = true)
 public sealed record WorldView(long Tick, string Time, string Place, string PlaceName, string Atmosphere,
     int Bread, IReadOnlyList<ResidentView> Residents, IReadOnlyList<PlaceView> Places,
     IReadOnlyList<ConversationLine> Transcript, IReadOnlyList<JournalEntry> Journal,
-    IReadOnlyList<PlayerAccount> Accounts, string Notes);
+    IReadOnlyList<PlayerAccount> Accounts, string Notes, IReadOnlyList<ConversationThreadView> Threads);
 public sealed record ActionResult(bool Success, string Message);

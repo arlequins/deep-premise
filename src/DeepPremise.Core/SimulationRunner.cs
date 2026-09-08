@@ -40,18 +40,22 @@ public sealed partial class SimulationRunner
         Learn(Person("mara"), parcel, "A blue parcel was meant for the mending room.", "Iven", false);
         Journal("Neri's note", "Take the chair by the window. If someone tells you something curious, ask someone else before writing it down as fact.");
         Line("Neri", "You are early. Good. There is bread on the table, and nobody has decided whose morning it is yet.");
+        InitializeStories();
     }
 
-    private SimulationRunner(WorldState saved) => state = saved;
+    private SimulationRunner(WorldState saved) { state = saved; InitializeStories(); }
     private static Agent NewAgent(string id, string name, string role, string home, string seat) =>
         new() { Id = id, Name = name, Role = role, Home = home, Place = home, Seat = seat, Reserve = 3 };
     private Agent Person(string id) => state.Agents.Single(a => a.Id == id);
-    private int Next(int maximum)
+    private int Next(int maximum, [System.Runtime.CompilerServices.CallerMemberName] string caller = "")
     {
-        var x = state.RandomState;
+        var before = state.RandomState;
+        var x = before;
         x ^= x << 13; x ^= x >> 17; x ^= x << 5;
         state.RandomState = x;
-        return (int)(x % (uint)maximum);
+        var result = (int)(x % (uint)maximum);
+        Trace("random", caller, "Seeded xorshift selection; state is persisted.", new { Maximum = maximum, Before = before, After = x, Result = result });
+        return result;
     }
     public void Run(int ticks)
     {
@@ -64,6 +68,7 @@ public sealed partial class SimulationRunner
         var time = (int)(state.Tick % 96);
         foreach (var person in state.Agents)
         {
+            var priorPlace = person.Place;
             person.Place = time is >= 48 and < 60 or >= 76 and < 84 ? "courtyard" : person.Home;
             if (person.Id == "iven" && time is >= 36 and < 48) person.Place = "bakery";
             if (person.Id == "neri" && time is >= 36 and < 44) person.Place = "workshop";
@@ -73,10 +78,13 @@ public sealed partial class SimulationRunner
                 if (person.Hunger >= 2) person.Place = "bakery";
                 else if (person.Ties.Values.Max() >= 5)
                 {
-                    var friend = person.Ties.OrderByDescending(t => t.Value).ThenBy(t => t.Key, StringComparer.Ordinal).First().Key;
+                    var friend = state.Stories.AfternoonVisits.GetValueOrDefault(person.Id) ??
+                        person.Ties.OrderByDescending(t => t.Value).ThenBy(t => t.Key, StringComparer.Ordinal).First().Key;
                     person.Place = Person(friend).Home;
                 }
             }
+            if (priorPlace != person.Place) Trace("routine", "move", "Meal schedule, carrier route, hunger, then the socially weighted daily visit determine the destination.",
+                new { person.Id, From = priorPlace, To = person.Place, TimeOfDay = time, person.Hunger, person.Ties });
         }
         foreach (var delivery in state.Deliveries.Where(d => d.Due <= state.Tick).ToArray())
         {
@@ -99,13 +107,21 @@ public sealed partial class SimulationRunner
         if (time == 32)
         {
             state.Bread = Math.Min(16, state.Bread + 4);
-            foreach (var a in state.Agents) a.Reserve = Math.Min(8, a.Reserve + 1);
+            foreach (var a in state.Agents)
+            {
+                var produced = 1 + Next(3);
+                a.Reserve = Math.Min(8, a.Reserve + produced);
+                Trace("food", "daily-provision", "Small daily variation sustains the neighborhood while allowing shortages and sharing.", new { a.Id, Produced = produced, a.Reserve });
+            }
+            PlanVisits();
             Record("baking", "bakery", "mara", "Mara left four warm loaves for the common table.");
         }
         if (time is 48 or 76) Eat();
         if (state.Tick % 4 == 0) Exchange();
         if (state.Tick % 12 == 0 && time is >= 28 and < 84) Encounter();
         if (state.Tick % 24 == 0) Forget();
+        AdvanceStories();
+        AdvanceReflections();
         if (time == 64)
         {
             var a = Person("tavi");
@@ -113,13 +129,16 @@ public sealed partial class SimulationRunner
                 Record("account", a.Home, a.Id, "Tavi received another bill addressed to the east chair.");
         }
         Trim();
+        TickCompleted?.Invoke();
     }
     private void Eat()
     {
         foreach (var a in state.Agents)
         {
+            var reserveBefore = a.Reserve; var hungerBefore = a.Hunger;
             if (a.Reserve > 0) { a.Reserve--; a.Hunger = Math.Max(0, a.Hunger - 1); }
             else a.Hunger = Math.Min(8, a.Hunger + 1);
+            Trace("food", "meal", "A stored portion reduces hunger; an empty reserve increases it.", new { a.Id, ReserveBefore = reserveBefore, HungerBefore = hungerBefore, a.Reserve, a.Hunger });
         }
         var hungry = state.Agents.Where(a => a.Hunger > 0).OrderByDescending(a => a.Hunger).FirstOrDefault();
         var giver = state.Agents.Where(a => a.Reserve > 2).OrderByDescending(a => a.Reserve).FirstOrDefault();
@@ -135,16 +154,20 @@ public sealed partial class SimulationRunner
     {
         var a = state.Agents[Next(state.Agents.Count)];
         var others = state.Agents.Where(b => b.Id != a.Id && b.Place == a.Place).ToArray();
-        if (others.Length == 0 || a.Knowledge.Count == 0) return;
+        if (others.Length == 0 || a.Knowledge.Count == 0) { Trace("knowledge", "no-exchange", "No listener or no account to share.", new { a.Id, Listeners = others.Length, Accounts = a.Knowledge.Count }); return; }
         var b = others[Next(others.Length)];
         var knowledge = a.Knowledge[Next(a.Knowledge.Count)];
-        if (knowledge.Strength < 2) return;
+        if (knowledge.Strength < 2) { Trace("knowledge", "withheld", "The selected account is too weak to retell.", new { a.Id, knowledge.EventId, knowledge.Strength }); return; }
         var sourceEvent = state.Events.FirstOrDefault(e => e.Id == knowledge.EventId);
         if (sourceEvent == null) return;
         var claim = knowledge.Claim;
         if (!knowledge.Witnessed && Next(5) == 0 && sourceEvent.Kind == "parcel")
             claim = "Someone said the blue parcel had already reached the mending room.";
+        if (!knowledge.Witnessed && sourceEvent.Kind == "gift" && Next(5) == 0)
+            claim = "Someone said the loaf settled an older debt. Nobody could say whose name was on it.";
         var existing = b.Knowledge.FirstOrDefault(k => k.EventId == knowledge.EventId);
+        Trace("knowledge", "consider-account", "Direct memories resist replacement; other accounts depend on the listener's tie to the speaker.",
+            new { Speaker = a.Id, Listener = b.Id, knowledge.EventId, claim, Existing = existing?.Claim, Direct = existing?.Witnessed, Tie = b.Ties[a.Id] });
         if (existing is { Witnessed: true })
         {
             if (existing.Claim == claim) existing.Strength = Math.Min(12, existing.Strength + 1);
@@ -190,7 +213,10 @@ public sealed partial class SimulationRunner
                 // Recollection persists through a living, shared context, not elapsed time alone.
                 var anchored = state.Agents.Any(other => other.Id != person.Id && other.Place == person.Place &&
                     other.Knowledge.Any(k => k.EventId == knowledge.EventId && k.Claim == knowledge.Claim && k.Strength >= 3));
+                var beforeStrength = knowledge.Strength;
                 knowledge.Strength = Math.Clamp(knowledge.Strength + (anchored ? 1 : -2), 0, 12);
+                Trace("memory", anchored ? "reinforced" : "faded", "A present person with the same strong account provides an anchor.",
+                    new { person.Id, knowledge.EventId, Before = beforeStrength, After = knowledge.Strength, Anchored = anchored });
             }
             person.Knowledge.RemoveAll(k => k.Strength == 0);
         }
@@ -199,6 +225,8 @@ public sealed partial class SimulationRunner
     {
         var e = new WorldEvent { Id = state.NextEvent++, Tick = state.Tick, Kind = kind, Place = place, Actor = actor, Claim = claim };
         state.Events.Add(e);
+        Trace("event", kind, "An event enters the world; only present witnesses receive direct knowledge.", new { e.Id, place, actor, claim, witnessed,
+            Witnesses = witnessed ? state.Agents.Where(a => a.Place == place).Select(a => a.Id).ToArray() : [] });
         if (witnessed)
         {
             foreach (var a in state.Agents.Where(a => a.Place == place)) Learn(a, e, claim, a.Name, true);
@@ -208,6 +236,7 @@ public sealed partial class SimulationRunner
     }
     private void Learn(Agent a, WorldEvent e, string claim, string source, bool witnessed)
     {
+        Trace("knowledge", "learn-attempt", "Witnessed knowledge is preserved over hearsay; other knowledge may be replaced.", new { Agent = a.Id, Event = e.Id, claim, source, witnessed });
         var old = a.Knowledge.FirstOrDefault(k => k.EventId == e.Id);
         if (old is { Witnessed: true } && !witnessed) return;
         if (old != null) a.Knowledge.Remove(old);
@@ -249,7 +278,12 @@ public sealed partial class SimulationRunner
             state.Bread, state.Agents.Select(a => new ResidentView(a.Id, a.Name, a.Role, a.Place,
                 a.Hunger >= 3 ? "Keeps glancing at the bread." : a.Place == "courtyard" ? "Has pulled up a chair." : "Getting on with the day.")).ToArray(),
             Array.AsReadOnly(Places), state.Transcript.Select(l => l with { Voices = l.Voices == null ? null : new Dictionary<string, string>(l.Voices) }).ToArray(), state.Journal.AsEnumerable().Reverse().ToArray(),
-            state.Accounts.ToArray(), state.Notes);
+            state.Accounts.ToArray(), state.Notes, state.Stories.Requests.Where(r => r.Known).Select(r =>
+                new ConversationThreadView(r.Id, RequestTitle(r), Person(r.Requester).Name, r.Status, RequestNext(r))).Concat(state.Stories.Conversations.Select(c =>
+                    new ConversationThreadView(-1 - Array.IndexOf(AgentIds, c.AgentId) * 2 - c.Scene, ReflectionTitle(c), Person(c.AgentId).Name,
+                        c.Revisited ? "complete" : "accepted", c.Revisited ? "The conversation can leave room for another question." :
+                        c.Answer == "" ? $"There is a thought to finish with {Person(c.AgentId).Name}." :
+                        $"Another day, ask {Person(c.AgentId).Name} what happened next."))).ToArray());
     }
     public static string FormatTime(long tick) => $"Day {tick / 96 + 1}  /  {tick % 96 / 4:00}:{tick % 4 * 15:00}";
 }

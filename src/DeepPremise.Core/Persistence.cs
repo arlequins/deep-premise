@@ -29,6 +29,7 @@ public sealed partial class SimulationRunner
         Require(s.Deliveries.Count <= 1 && s.Obligations.Count == 1 && s.Questions.Count <= 64);
         Require(s.Events.Select(e => e.Id).Distinct().Count() == s.Events.Count);
         Require(s.Transcript.Select(e => e.Id).Distinct().Count() == s.Transcript.Count);
+        ValidateStories(s);
         foreach (var a in s.Agents)
         {
             Require(a.Name.Length is > 0 and < 50 && a.Role.Length < 50 && a.Seat.Length < 50);

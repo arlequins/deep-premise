@@ -755,6 +755,746 @@
     {
       "en": "Korean",
       "ko": "한국어"
+    },
+    {
+      "en": "Look around",
+      "ko": "주변 살펴보기"
+    },
+    {
+      "en": "Rest until morning",
+      "ko": "아침까지 쉬기"
+    },
+    {
+      "en": "Promises",
+      "ko": "약속"
+    },
+    {
+      "en": "Ask a neighbor whether they need a hand.",
+      "ko": "이웃에게 도움이 필요한지 물어보세요."
+    },
+    {
+      "en": "{a} stayed after supper to help {b} wash the cups.",
+      "ko": "{a}: 저녁을 먹고 남아서 {b}의 컵 씻는 일을 도왔다."
+    },
+    {
+      "en": "{a}'s note",
+      "ko": "{a}의 쪽지"
+    },
+    {
+      "en": "Come by when you have a moment. There is something to show you.",
+      "ko": "시간이 나면 들러요. 보여 줄 게 있어요."
+    },
+    {
+      "en": "We found another pair of hands. Come over anyway; the conversation can wait for you.",
+      "ko": "다른 사람의 손을 빌렸어요. 그래도 들러요. 이야기는 당신을 기다릴 수 있으니까."
+    },
+    {
+      "en": "Is there anything you need a hand with?",
+      "ko": "제가 도울 일이 있나요?"
+    },
+    {
+      "en": "What keeps you in this neighborhood?",
+      "ko": "이 동네에 계속 사는 이유가 있나요?"
+    },
+    {
+      "en": "How do you get along with {a}?",
+      "ko": "{a}하고는 어떻게 지내나요?"
+    },
+    {
+      "en": "I can help with that.",
+      "ko": "제가 도울게요."
+    },
+    {
+      "en": "I cannot promise that today.",
+      "ko": "오늘은 약속하기 어렵겠어요."
+    },
+    {
+      "en": "Give two loaves from the common table.",
+      "ko": "공동 식탁의 빵 두 덩이를 건넨다."
+    },
+    {
+      "en": "Hold the hinge while they mend it.",
+      "ko": "수리하는 동안 경첩을 잡아 준다."
+    },
+    {
+      "en": "Return the small thing you found.",
+      "ko": "찾은 작은 물건을 돌려준다."
+    },
+    {
+      "en": "Keep both accounts, with both names attached.",
+      "ko": "두 사람의 이름과 함께 두 이야기를 모두 남긴다."
+    },
+    {
+      "en": "Say their version should be the one repeated.",
+      "ko": "이쪽 이야기를 전하는 게 맞겠다고 말한다."
+    },
+    {
+      "en": "Bring two loaves for the evening table.",
+      "ko": "저녁 식탁에 빵 두 덩이를 가져간다."
+    },
+    {
+      "en": "Give {a} the folded letter, still closed.",
+      "ko": "{a}에게 접힌 편지를 펼치지 않고 건넨다."
+    },
+    {
+      "en": "Explain the letter in your own words instead.",
+      "ko": "편지 내용을 자기 말로 바꾸어 전한다."
+    },
+    {
+      "en": "Invite them to stay for the evening meal.",
+      "ko": "저녁 식사에 남아 달라고 초대한다."
+    },
+    {
+      "en": "Ask for their account before repeating anything.",
+      "ko": "이야기를 옮기기 전에 이 사람의 말을 듣는다."
+    },
+    {
+      "en": "You said there was something to show me.",
+      "ko": "보여 줄 게 있다고 하셨죠."
+    },
+    {
+      "en": "Nothing urgent. You can sit here without earning the chair, you know.",
+      "ko": "급한 일은 없어요. 의자에 앉을 자격을 벌어 오지 않아도 여기 앉을 수 있어요."
+    },
+    {
+      "en": "I have been putting off lunch to finish this. Could you spare two loaves? One is for later. I keep forgetting that later arrives.",
+      "ko": "이걸 끝내느라 점심을 자꾸 미뤘어요. 빵 두 덩이만 나눠 줄래요? 하나는 나중에 먹으려고요. 나중이라는 시간도 결국 온다는 걸 자꾸 잊네요."
+    },
+    {
+      "en": "This hinge needs another pair of hands. I can do the careful part if you keep it still. Come back afterwards; it takes time for a repair to settle.",
+      "ko": "이 경첩은 혼자 고치기 어렵네요. 움직이지 않게 잡아 주면 세밀한 부분은 내가 할게요. 끝나고 다시 들러요. 고친 것도 자리를 잡으려면 시간이 필요하니까."
+    },
+    {
+      "en": "Would you take a folded letter to {a}? Leave it closed. The space before the first word belongs to them.",
+      "ko": "{a}에게 접힌 편지를 가져다줄래요? 펼치지 말고요. 첫 단어 앞의 여백은 그 사람 것이에요."
+    },
+    {
+      "en": "I left a small keepsake at The Common Table. Look around there if you pass by. I would rather describe it after you find it.",
+      "ko": "공동 식탁에 작은 기념품을 두고 왔어요. 지나가면 살펴봐 줄래요? 어떤 물건인지는 찾은 뒤에 말하고 싶어요."
+    },
+    {
+      "en": "I left a small keepsake at Mara's Oven. Look around there if you pass by. I would rather describe it after you find it.",
+      "ko": "마라의 화덕에 작은 기념품을 두고 왔어요. 지나가면 살펴봐 줄래요? 어떤 물건인지는 찾은 뒤에 말하고 싶어요."
+    },
+    {
+      "en": "I left a small keepsake at The Mending Room. Look around there if you pass by. I would rather describe it after you find it.",
+      "ko": "수선방에 작은 기념품을 두고 왔어요. 지나가면 살펴봐 줄래요? 어떤 물건인지는 찾은 뒤에 말하고 싶어요."
+    },
+    {
+      "en": "I left a small keepsake at Reed Landing. Look around there if you pass by. I would rather describe it after you find it.",
+      "ko": "갈대 나루에 작은 기념품을 두고 왔어요. 지나가면 살펴봐 줄래요? 어떤 물건인지는 찾은 뒤에 말하고 싶어요."
+    },
+    {
+      "en": "We have room for {a} this evening. Would you ask them, and bring two loaves? The food and the invitation need not come from the same hand.",
+      "ko": "오늘 저녁에는 {a}의 자리가 있어요. 와 달라고 전하고 빵 두 덩이도 가져와 줄래요? 음식과 초대가 꼭 같은 손에서 나올 필요는 없죠."
+    },
+    {
+      "en": "{a} and I remember the same afternoon differently. Will you hear them before you decide what I meant?",
+      "ko": "{a}하고 나는 같은 오후를 다르게 기억해요. 내 뜻을 판단하기 전에 그 사람 말도 들어 줄래요?"
+    },
+    {
+      "en": "Thank you. No need to hurry past everyone else on my account.",
+      "ko": "고마워요. 내 일 때문에 다른 사람들을 서둘러 지나칠 필요는 없어요."
+    },
+    {
+      "en": "Then we will leave the promise unmade. That is easier to keep.",
+      "ko": "그럼 약속하지 않은 채로 두죠. 그편이 지키기 쉽겠네요."
+    },
+    {
+      "en": "You held a hinge steady while Orren worked. Tavi watched the movement of your hands.",
+      "ko": "오렌이 일하는 동안 당신은 경첩을 잡았다. 타비는 당신의 손이 움직이는 모습을 지켜봤다."
+    },
+    {
+      "en": "There. Feel how it moves? Don't test it again yet. Have a walk. Tomorrow's hand can judge today's work.",
+      "ko": "됐어요. 움직이는 느낌이 다르죠? 아직 다시 시험하지는 말고 산책하고 와요. 오늘 한 일은 내일의 손으로 판단해도 되니까."
+    },
+    {
+      "en": "I'll put these under the cloth. There is still time to ask our guest.",
+      "ko": "천 아래에 넣어 둘게요. 손님을 부를 시간은 아직 있어요."
+    },
+    {
+      "en": "They asked for me? Not for someone to fill a seat? All right. I'll bring the cups back afterwards.",
+      "ko": "나를 불렀다고요? 빈자리를 채울 아무나가 아니라? 좋아요. 끝나고 컵은 내가 가져다 놓을게요."
+    },
+    {
+      "en": "They said I left first. I remember holding the door for them. Perhaps we were thinking of different doors.",
+      "ko": "내가 먼저 갔다고 하던가요. 나는 문을 잡아 줬던 게 기억나는데. 서로 다른 문을 생각하는 건지도 모르죠."
+    },
+    {
+      "en": "I didn't refuse the gift. I asked whose hands had wrapped it. By then they had put it away.",
+      "ko": "선물을 거절한 게 아니에요. 누가 포장했는지 물었어요. 그때는 이미 도로 넣어 버렸더라고요."
+    },
+    {
+      "en": "We agreed to meet after the bell. Nobody asked which of us would hear it. That is all I am certain of.",
+      "ko": "종이 울린 뒤에 만나기로 했어요. 우리 중 누가 그 소리를 들을지는 아무도 묻지 않았죠. 확실한 건 거기까지예요."
+    },
+    {
+      "en": "Is that what the letter says, or what you took it to mean? I will keep the folded part as well.",
+      "ko": "편지에 그렇게 쓰였나요, 아니면 당신이 그렇게 읽었나요? 접힌 부분도 간직할게요."
+    },
+    {
+      "en": "It is comforting to be believed. I wonder whether they will still come to the table.",
+      "ko": "믿어 주니 마음이 놓이네요. 그 사람이 그래도 식탁에 올지는 모르겠어요."
+    },
+    {
+      "en": "One for now, one for later. Sit with me for the first, if you like. It tastes less borrowed that way.",
+      "ko": "하나는 지금, 하나는 나중에. 괜찮다면 첫 번째는 같이 먹어요. 그러면 빌려 먹는 맛이 덜하거든요."
+    },
+    {
+      "en": "It opens quietly now. Tavi says the room feels larger. We only changed the hinge, didn't we?",
+      "ko": "이제 조용히 열려요. 타비는 방이 넓어진 것 같대요. 우리는 경첩만 고쳤는데, 그렇죠?"
+    },
+    {
+      "en": "You left it closed. Thank you. I can still hear the pause before it was written.",
+      "ko": "펼치지 않았군요. 고마워요. 쓰기 전에 멈칫했던 순간이 아직 들려요."
+    },
+    {
+      "en": "Yes, that is it. I knew the scratch before I knew the shape. Strange what stays, isn't it?",
+      "ko": "맞아요, 그거예요. 모양보다 흠집이 먼저 눈에 들어왔어요. 남는 건 참 이상하죠?"
+    },
+    {
+      "en": "They stayed to wash the cups. Next time we won't need to call it an invitation. There will just be another place.",
+      "ko": "남아서 컵까지 씻어 줬어요. 다음에는 초대라고 부를 필요도 없겠죠. 그냥 자리가 하나 더 있을 거예요."
+    },
+    {
+      "en": "Keep both names, then. We can sit across from a different account. It is harder to sit across from silence.",
+      "ko": "그럼 두 이름 다 남겨요. 다른 이야기와는 마주 앉을 수 있죠. 침묵과 마주 앉는 게 더 어려워요."
+    },
+    {
+      "en": "You kept your word. There is a place for you next time.",
+      "ko": "약속을 지켜 줬네요. 다음에도 당신 자리는 있어요."
+    },
+    {
+      "en": "Two loaves for later",
+      "ko": "나중을 위한 빵 두 덩이"
+    },
+    {
+      "en": "A hinge and another hand",
+      "ko": "경첩과 빌려 온 손"
+    },
+    {
+      "en": "The unopened letter",
+      "ko": "펼치지 않은 편지"
+    },
+    {
+      "en": "A small thing left behind",
+      "ko": "두고 온 작은 물건"
+    },
+    {
+      "en": "Another place at supper",
+      "ko": "저녁 식탁의 또 한 자리"
+    },
+    {
+      "en": "Two accounts of an afternoon",
+      "ko": "한 오후의 두 이야기"
+    },
+    {
+      "en": "A promise has not been made yet.",
+      "ko": "아직 약속하지 않았다."
+    },
+    {
+      "en": "Let some time pass, then return for a conversation.",
+      "ko": "시간이 조금 흐른 뒤 다시 찾아가 이야기하자."
+    },
+    {
+      "en": "Come back and speak with {a}.",
+      "ko": "{a}에게 돌아가 이야기를 나누자."
+    },
+    {
+      "en": "The favor is remembered. The conversation may continue.",
+      "ko": "도움을 기억하고 있다. 이야기는 계속될 수 있다."
+    },
+    {
+      "en": "No promise was made.",
+      "ko": "약속을 맺지 않았다."
+    },
+    {
+      "en": "The neighbors found their own way through it.",
+      "ko": "이웃들이 스스로 해결할 길을 찾았다."
+    },
+    {
+      "en": "Bring two loaves to the person who asked.",
+      "ko": "부탁한 사람에게 빵 두 덩이를 가져가자."
+    },
+    {
+      "en": "Visit the mending room and lend a hand.",
+      "ko": "수선방에 가서 손을 빌려주자."
+    },
+    {
+      "en": "The letter is for {a}.",
+      "ko": "{a}에게 전할 편지다."
+    },
+    {
+      "en": "Return the keepsake to the person who lost it.",
+      "ko": "기념품을 잃어버린 사람에게 돌려주자."
+    },
+    {
+      "en": "Look around at The Common Table.",
+      "ko": "공동 식탁 주변을 살펴보자."
+    },
+    {
+      "en": "Look around at Mara's Oven.",
+      "ko": "마라의 화덕 주변을 살펴보자."
+    },
+    {
+      "en": "Look around at The Mending Room.",
+      "ko": "수선방 주변을 살펴보자."
+    },
+    {
+      "en": "Look around at Reed Landing.",
+      "ko": "갈대 나루 주변을 살펴보자."
+    },
+    {
+      "en": "The guest is coming. Bring bread to the table keeper.",
+      "ko": "손님은 오기로 했다. 식탁지기에게 빵을 가져가자."
+    },
+    {
+      "en": "Invite {a} and bring bread for supper.",
+      "ko": "{a}에게 저녁 초대를 전하고 빵을 가져가자."
+    },
+    {
+      "en": "Bring both accounts back to the person who asked.",
+      "ko": "부탁한 사람에게 두 이야기를 모두 전하자."
+    },
+    {
+      "en": "Hear {a} before deciding what to repeat.",
+      "ko": "무엇을 전할지 결정하기 전에 {a}의 이야기를 듣자."
+    },
+    {
+      "en": "Under the bench: a little wooden bird, worn smooth except for one scratch.",
+      "ko": "벤치 아래에 작은 나무 새가 있다. 흠집 하나만 남고 매끈하게 닳았다."
+    },
+    {
+      "en": "Beside a folded cloth: a brass button with a strand of blue thread.",
+      "ko": "접힌 천 옆에 푸른 실 한 가닥이 달린 황동 단추가 있다."
+    },
+    {
+      "en": "At the edge of the path: a small cup with a repaired handle.",
+      "ko": "길 가장자리에 손잡이를 고친 작은 컵이 있다."
+    },
+    {
+      "en": "Two prices are chalked beside the same loaf. One has a person's name under it.",
+      "ko": "같은 빵 옆에 분필로 가격이 둘 적혀 있다. 한쪽 아래에는 사람 이름이 있다."
+    },
+    {
+      "en": "The bowls are clean. A flower stands in one of them, where a receipt might have been.",
+      "ko": "그릇들은 깨끗하다. 영수증이 있을 법한 그릇 하나에 꽃이 꽂혀 있다."
+    },
+    {
+      "en": "The tools have outlines on the wall. One outline is shaped like an open hand.",
+      "ko": "벽에 공구 모양의 윤곽이 그려져 있다. 하나는 펼친 손 모양이다."
+    },
+    {
+      "en": "Someone has mended a coat from the inside. The worn place is still visible outside.",
+      "ko": "누군가 외투를 안쪽에서 기웠다. 바깥에서는 해진 자리가 여전히 보인다."
+    },
+    {
+      "en": "The path divides, then meets again before the water. Both branches have fresh footprints.",
+      "ko": "길이 갈라졌다가 물가 앞에서 다시 만난다. 양쪽에 모두 새로운 발자국이 있다."
+    },
+    {
+      "en": "A length of blue thread is caught in the boards. It could have come from several things.",
+      "ko": "판자 사이에 푸른 실이 걸려 있다. 어디서 왔을지 여러 가지가 떠오른다."
+    },
+    {
+      "en": "The empty chair has been turned a little closer to the others.",
+      "ko": "빈 의자가 다른 의자들 쪽으로 조금 돌아가 있다."
+    },
+    {
+      "en": "Someone has written six names on the underside of a cup. One is crossed out very carefully.",
+      "ko": "누군가 컵 밑에 이름 여섯 개를 썼다. 하나에는 아주 조심스럽게 줄이 그어져 있다."
+    },
+    {
+      "en": "Morning comes. There may be someone new at the table.",
+      "ko": "아침이 왔다. 식탁에 새로운 사람이 있을지도 모른다."
+    },
+    {
+      "en": "{a} knows when to leave the second cup. That is more useful than knowing everything about me.",
+      "ko": "{a}: 언제 두 번째 컵을 놓아야 하는지 아는 사람이에요. 나에 대해 전부 아는 것보다 그게 더 쓸모 있죠."
+    },
+    {
+      "en": "{a} and I still have things to ask each other. I would worry if we ran out.",
+      "ko": "{a}하고는 아직 서로 물어볼 게 있어요. 더 물을 게 없어지면 걱정될 것 같아요."
+    },
+    {
+      "en": "I used to want a shop with my name over the door. Now I want someone to notice when I close it early.",
+      "ko": "전에는 문 위에 내 이름이 걸린 가게를 갖고 싶었어요. 이제는 일찍 문을 닫으면 알아채는 사람이 있었으면 해요."
+    },
+    {
+      "en": "The oven takes longer to cool than I take to stop worrying. I think that is why I stay near it.",
+      "ko": "내 걱정이 멎는 것보다 화덕이 식는 데 더 오래 걸려요. 그래서 곁에 머무는 것 같아요."
+    },
+    {
+      "en": "You remember the parcel story. Good. Some days I need someone who remembers that I was the one who told it.",
+      "ko": "꾸러미 이야기를 기억하는군요. 다행이에요. 어떤 날은 그 이야기를 한 사람이 나였다는 걸 기억해 줄 사람이 필요해요."
+    },
+    {
+      "en": "I like the part of a journey before anybody asks what arrived. For a little while, carrying is enough.",
+      "ko": "여행 중에는 뭐가 도착했냐고 묻기 전의 시간이 좋아요. 잠깐이나마 들고 가는 것만으로 충분하니까."
+    },
+    {
+      "en": "After that supper, I stopped counting chairs before people came. I still put one extra out. Habit is slower than understanding.",
+      "ko": "그 저녁 이후로는 사람들이 오기 전에 의자를 세지 않아요. 그래도 하나는 더 꺼내 놓죠. 습관은 이해보다 느리니까."
+    },
+    {
+      "en": "Someone kept a place for me once. I don't remember what they served. I remember not having to ask whether I could sit.",
+      "ko": "한번은 누군가 내 자리를 남겨 뒀어요. 뭘 차렸는지는 기억 안 나요. 앉아도 되냐고 물을 필요가 없었다는 건 기억해요."
+    },
+    {
+      "en": "You held the hinge differently from Tavi. Both ways worked. I wish people were as willing to admit that about other things.",
+      "ko": "당신은 타비와 다르게 경첩을 잡았어요. 둘 다 괜찮았죠. 다른 일에서도 사람들이 그걸 쉽게 인정하면 좋겠어요."
+    },
+    {
+      "en": "Mending leaves a seam. I like that. A thing can be useful without pretending nothing happened to it.",
+      "ko": "기우면 솔기가 남죠. 난 그게 좋아요. 아무 일도 없었던 척하지 않아도 쓸모 있을 수 있으니까."
+    },
+    {
+      "en": "You carried the quiet part of a letter. Most people only notice the words. That is why I asked you.",
+      "ko": "당신은 편지의 조용한 부분을 옮겨 줬어요. 대부분은 글자만 보죠. 그래서 당신에게 부탁한 거예요."
+    },
+    {
+      "en": "I wanted to keep a perfect record. Then someone asked where the hesitation belonged. I left more space after that.",
+      "ko": "완벽하게 기록하고 싶었어요. 그런데 누가 망설임은 어디에 쓰냐고 물었죠. 그 뒤로 여백을 더 남겨요."
+    },
+    {
+      "en": "People have begun leaving my cup where I put it, instead of where it used to go. That is a small thing. I think it is mine.",
+      "ko": "사람들이 내 컵을 예전 자리가 아니라 내가 놓은 곳에 두기 시작했어요. 사소한 일이죠. 그건 내 것인 것 같아요."
+    },
+    {
+      "en": "I thought belonging would feel like recognition. So far it feels like being allowed to ask the same question again.",
+      "ko": "어딘가에 속하면 알아봐 주는 느낌일 줄 알았어요. 아직은 같은 질문을 다시 해도 되는 느낌에 가까워요."
+    },
+    {
+      "en": "Let both possibilities stay in the conversation.",
+      "ko": "두 가능성을 모두 남겨 두고 이야기한다."
+    },
+    {
+      "en": "Ask what they would trust enough to act on.",
+      "ko": "무엇을 믿고 행동할 수 있을지 묻는다."
+    },
+    {
+      "en": "Have you thought any more about what we said?",
+      "ko": "지난번 이야기를 더 생각해 보셨나요?"
+    },
+    {
+      "en": "What have you been thinking about since we last spoke?",
+      "ko": "지난번 만난 뒤로 무슨 생각을 하셨나요?"
+    },
+    {
+      "en": "I tried telling {a}. They stayed until I finished.",
+      "ko": "{a}에게도 말해 봤어요. 내가 끝까지 말할 때까지 있어 줬어요."
+    },
+    {
+      "en": "I might ask {a} next. We have not found the words for this together yet.",
+      "ko": "다음에는 {a}에게 물어볼까 해요. 우리는 아직 이걸 함께 이야기할 말을 찾지 못했어요."
+    },
+    {
+      "en": "You and {a} left room for two versions of the same thought.",
+      "ko": "당신과 {a}: 같은 생각을 두 가지로 이야기할 여지를 남겼다."
+    },
+    {
+      "en": "You asked {a} which part of the story they would put to use.",
+      "ko": "당신은 {a}에게 이야기의 어느 부분을 행동으로 옮길 수 있을지 물었다."
+    },
+    {
+      "en": "A price with a name",
+      "ko": "이름이 적힌 가격"
+    },
+    {
+      "en": "Closing before the bread is gone",
+      "ko": "빵이 남았을 때 문 닫기"
+    },
+    {
+      "en": "The journey without a receipt",
+      "ko": "영수증 없는 여정"
+    },
+    {
+      "en": "A road told twice",
+      "ko": "두 번 이야기한 길"
+    },
+    {
+      "en": "The cup nobody owns",
+      "ko": "아무의 것도 아닌 컵"
+    },
+    {
+      "en": "A place not yet taken",
+      "ko": "아직 앉지 않은 자리"
+    },
+    {
+      "en": "The seam on the inside",
+      "ko": "안쪽의 솔기"
+    },
+    {
+      "en": "Teaching the other hand",
+      "ko": "다른 손을 가르치는 일"
+    },
+    {
+      "en": "Where the pause belongs",
+      "ko": "멈칫한 순간의 자리"
+    },
+    {
+      "en": "An account with two names",
+      "ko": "이름 둘이 적힌 기록"
+    },
+    {
+      "en": "A name older than its owner",
+      "ko": "주인보다 오래된 이름"
+    },
+    {
+      "en": "The cup where I left it",
+      "ko": "내가 놓은 곳의 컵"
+    },
+    {
+      "en": "The conversation can leave room for another question.",
+      "ko": "이야기는 또 다른 질문의 자리를 남길 수 있다."
+    },
+    {
+      "en": "There is a thought to finish with {a}.",
+      "ko": "{a}하고 더 나눌 생각이 있다."
+    },
+    {
+      "en": "Another day, ask {a} what happened next.",
+      "ko": "다른 날에 {a}에게 그 뒤의 일을 물어보자."
+    },
+    {
+      "en": "I wrote a price beside a loaf, then a name beneath it. The price looked wrong after that. The flour hadn't changed. What would you have erased?",
+      "ko": "빵 옆에 가격을 쓰고 그 밑에 이름을 썼어요. 그랬더니 가격이 틀린 것처럼 보였죠. 밀가루는 달라지지 않았는데. 당신이라면 뭘 지웠겠어요?"
+    },
+    {
+      "en": "Suppose I carry something all the way there and nobody can tell you I arrived. My shoulders know the journey. Would you send me again?",
+      "ko": "내가 끝까지 운반했는데 아무도 도착했다고 말해 줄 수 없다고 해 봐요. 내 어깨는 그 길을 알아요. 그래도 나를 다시 보내겠어요?"
+    },
+    {
+      "en": "There is a cup everyone uses and nobody takes home. Yesterday someone called it mine. I washed it differently. I wish I knew why.",
+      "ko": "모두 쓰지만 아무도 집에 가져가지 않는 컵이 있어요. 어제 누가 그걸 내 것이라고 불렀어요. 씻는 손길이 달라지더라고요. 왜 그랬는지 알면 좋겠어요."
+    },
+    {
+      "en": "I turned a coat inside out to mend it. Its owner said it no longer felt borrowed. The seam is on the inside. Who was the repair for?",
+      "ko": "외투를 뒤집어서 기웠어요. 주인이 이제 빌려 입은 느낌이 안 난대요. 솔기는 안쪽에 있는데. 누굴 위해 고친 걸까요?"
+    },
+    {
+      "en": "Two people gave me the same words with different pauses. I wrote identical lines. When I read them back, both said I had copied the other person.",
+      "ko": "두 사람이 같은 말을 서로 다르게 끊어서 했어요. 나는 똑같은 줄을 적었죠. 읽어 줬더니 둘 다 상대방 말을 베꼈다고 하더라고요."
+    },
+    {
+      "en": "Someone called me by a name that was on a bill before I came here. For a moment I almost answered. Is recognition always something you want?",
+      "ko": "내가 오기 전부터 청구서에 있던 이름으로 누가 나를 불렀어요. 잠깐은 대답할 뻔했죠. 알아봐 주는 게 언제나 반가운 일일까요?"
+    },
+    {
+      "en": "You have sat here to eat. So tell me this: if I close while bread is still on the shelf, have I left work unfinished, or made time for something else?",
+      "ko": "당신도 여기 앉아 먹어 봤죠. 그럼 말해 봐요. 빵이 남았을 때 문을 닫으면 일을 덜 한 걸까요, 다른 일을 할 시간을 만든 걸까요?"
+    },
+    {
+      "en": "Sometimes I leave one loaf on the shelf so closing doesn't look like running out. I wonder who I am trying to reassure.",
+      "ko": "다 떨어져서 닫는 것처럼 보이지 않으려고 빵을 하나 남겨 둘 때가 있어요. 누구를 안심시키려는 건지 모르겠네요."
+    },
+    {
+      "en": "I told the road one way this morning and another way this afternoon. Both listeners knew where I meant. Perhaps directions are a kind of introduction.",
+      "ko": "아침과 오후에 길을 다르게 설명했어요. 둘 다 어딘지 알아들었죠. 길을 알려 주는 것도 일종의 소개인가 봐요."
+    },
+    {
+      "en": "After our supper I set out an extra place without choosing who it was for. It felt less empty that way. Would you have put a name beside it?",
+      "ko": "함께 저녁을 먹은 뒤로는 누구 자리인지 정하지 않고 하나를 더 차려요. 그러면 덜 빈 느낌이에요. 당신이라면 옆에 이름을 놓았을까요?"
+    },
+    {
+      "en": "I could invite someone, or I could leave a place open. One feels kinder until I imagine being the person outside.",
+      "ko": "누군가를 초대할 수도, 자리를 비워 둘 수도 있죠. 밖에 있는 사람이 되어 보기 전까지는 한쪽이 더 다정하게 느껴져요."
+    },
+    {
+      "en": "You have held a hinge with me. Tomorrow Tavi may hold it another way. Should I teach the way I know, or wait to see whether the door opens?",
+      "ko": "나와 경첩을 잡아 봤죠. 내일 타비는 다르게 잡을지도 몰라요. 내가 아는 방법을 가르칠까요, 문이 열리는지 기다려 볼까요?"
+    },
+    {
+      "en": "Tavi holds the needle differently. The stitches are sound. I keep reaching to correct the hand, then remembering whose coat it is.",
+      "ko": "타비는 바늘을 다르게 잡아요. 바느질은 튼튼하죠. 자꾸 손을 바로잡아 주려다가 누구 외투였는지 떠올려요."
+    },
+    {
+      "en": "Your notebook has more than one voice in it now. When they disagree, do you make a margin, or choose which line goes first?",
+      "ko": "이제 당신 수첩에도 여러 목소리가 있네요. 서로 다르면 여백을 만드나요, 어느 줄을 먼저 쓸지 고르나요?"
+    },
+    {
+      "en": "A blank margin looks like room to me. To someone else it looked as if I had left them out. How wide should a record be?",
+      "ko": "내게 빈 여백은 자리가 있는 것처럼 보여요. 누군가에게는 자기를 빼놓은 것처럼 보였대요. 기록은 얼마나 넓어야 할까요?"
+    },
+    {
+      "en": "My cup was where I left it this morning. Nobody moved it back. I wanted to thank someone, but that would mean asking who had decided to leave it alone.",
+      "ko": "아침에 내 컵이 놓아둔 자리에 있었어요. 아무도 도로 옮기지 않았죠. 고맙다고 하고 싶었지만 그러려면 누가 그냥 두기로 했는지 물어야 하잖아요."
+    },
+    {
+      "en": "Then I will leave the question open tonight. That is different from forgetting it. Ask me tomorrow; I want to know whether I can tell the difference.",
+      "ko": "그럼 오늘 밤은 질문을 열어 둘게요. 잊는 것과는 다르죠. 내일 물어봐요. 내가 그 차이를 아는지 궁금하니까."
+    },
+    {
+      "en": "All right. I will try one small thing, where somebody can answer back. Ask me tomorrow. I would rather bring you an attempt than a rule.",
+      "ko": "좋아요. 누군가 답할 수 있는 곳에서 작은 일 하나를 해 볼게요. 내일 물어봐요. 법칙보다는 시도해 본 이야기를 가져오고 싶어요."
+    },
+    {
+      "en": "Leave both marks? Then the next person has to speak to me. I had thought a price was meant to save us that trouble.",
+      "ko": "둘 다 남겨요? 그러면 다음 사람은 나한테 말을 걸어야겠네요. 가격은 그런 수고를 덜려고 있는 줄 알았어요."
+    },
+    {
+      "en": "You would hear the journey before judging the delivery. I can work with that. I might tell it more slowly than you expect.",
+      "ko": "배달을 판단하기 전에 여정부터 듣겠다는 거군요. 그럼 괜찮아요. 당신이 생각한 것보다 천천히 말할지도 몰라요."
+    },
+    {
+      "en": "Perhaps a cup can belong to the washing as much as the hand. I won't write that down yet. It sounds too settled on paper.",
+      "ko": "컵은 쥔 손만큼 씻는 일에도 속할지 몰라요. 아직 적지는 않을래요. 종이 위에서는 너무 확실해 보이니까."
+    },
+    {
+      "en": "The coat can have changed for two reasons. Yes. I keep forgetting that a neat seam need not be a neat answer.",
+      "ko": "외투가 달라진 이유가 둘일 수도 있죠. 그래요. 솔기가 단정하다고 답도 단정할 필요는 없다는 걸 자꾸 잊어요."
+    },
+    {
+      "en": "I can leave a gap between the lines. Someone may think it is a mistake. Perhaps they will ask instead of correcting it.",
+      "ko": "줄 사이에 틈을 남길 수는 있겠죠. 누군가는 실수라고 생각할 거예요. 고치는 대신 물어봐 줄지도 모르고요."
+    },
+    {
+      "en": "I can answer to the person without answering to the bill. I want that to be possible. Let me try the sentence a little longer.",
+      "ko": "청구서가 아니라 사람에게 대답할 수 있겠죠. 그럴 수 있으면 좋겠어요. 그 문장을 조금 더 생각해 볼래요."
+    },
+    {
+      "en": "I would ask whether they had eaten. That would tell me what to do with this loaf. It wouldn't tell me what bread is worth.",
+      "ko": "밥을 먹었는지 묻겠어요. 그러면 이 빵을 어떻게 할지는 알겠죠. 빵의 가치가 얼마인지는 몰라도요."
+    },
+    {
+      "en": "I would ask someone to meet me at the end. Not to watch my hands. To have a beginning for the next part of the story.",
+      "ko": "끝에서 누군가 만나 달라고 하겠어요. 내 손을 지켜보라는 게 아니에요. 다음 이야기의 시작이 있게 하려고요."
+    },
+    {
+      "en": "I would put it back where anyone could reach it. Then see who washes it. That is at least something my hands can ask.",
+      "ko": "누구나 손이 닿는 곳에 놓고 누가 씻는지 보겠어요. 적어도 내 손으로 물을 수 있는 일이니까."
+    },
+    {
+      "en": "I would ask the owner to wear it before calling it finished. Tools don't get the last word about comfort.",
+      "ko": "다 됐다고 하기 전에 주인에게 입어 보라고 하겠어요. 편안한지에 대한 마지막 말은 공구가 할 수 없죠."
+    },
+    {
+      "en": "I would read it aloud with each of them present. If I cannot keep a pause on paper, perhaps I can give it a room.",
+      "ko": "각자 앞에서 소리 내어 읽겠어요. 종이에 멈칫한 순간을 남길 수 없다면 방 하나를 내줄 수는 있겠죠."
+    },
+    {
+      "en": "I would ask who they meant before I answered. That is a small delay. I think I can afford it.",
+      "ko": "대답하기 전에 누구를 부르는지 묻겠어요. 조금 늦어지겠죠. 그 정도는 괜찮을 것 같아요."
+    },
+    {
+      "en": "I left it open, as we said. Someone asked a question I hadn't left room for. Keeping two possibilities did not mean there were only two.",
+      "ko": "말한 대로 열어 뒀어요. 누군가 내가 자리도 마련하지 못한 질문을 했죠. 가능성을 둘 남긴다고 둘뿐인 건 아니었어요."
+    },
+    {
+      "en": "I tried the small thing. It worked once. I nearly called that proof, then remembered you would ask me who else was there.",
+      "ko": "작은 일을 해 봤어요. 한 번은 됐죠. 증거라고 부를 뻔하다가 당신이라면 누가 더 있었냐고 묻겠다는 생각이 들었어요."
+    },
+    {
+      "en": "Someone asked why there were two marks beside the loaf. We talked long enough that I burned the next batch a little. They took the darker piece.",
+      "ko": "누가 빵 옆에 표시가 왜 둘이냐고 물었어요. 오래 이야기하느라 다음 빵을 조금 태웠죠. 그 사람이 더 까만 조각을 가져갔어요."
+    },
+    {
+      "en": "I asked whether they had eaten. They asked whether I had. I had not planned for the question to come back.",
+      "ko": "밥을 먹었냐고 물었더니 나한테도 묻더라고요. 질문이 돌아올 줄은 생각하지 못했어요."
+    },
+    {
+      "en": "I told the journey slowly. I remembered a stop I usually leave out. Nothing arrived there. Someone was pleased to see me anyway.",
+      "ko": "여정을 천천히 말했어요. 평소엔 빼던 곳이 생각났죠. 아무것도 배달하지 않은 곳인데, 그래도 나를 반가워한 사람이 있었어요."
+    },
+    {
+      "en": "I asked for someone at the other end. They were late. For once, waiting felt like part of arriving.",
+      "ko": "끝에서 기다려 달라고 했어요. 그 사람이 늦었죠. 이번에는 기다리는 것도 도착의 일부 같았어요."
+    },
+    {
+      "en": "I left the cup without a name. Someone put a flower in it. For an afternoon it wasn't waiting for anybody to drink.",
+      "ko": "컵에 이름을 붙이지 않았어요. 누가 꽃을 꽂았더라고요. 그 오후에는 마실 사람을 기다리는 컵이 아니었죠."
+    },
+    {
+      "en": "I put the cup within reach. Two people reached for it, then washed it together. That was not an answer I had prepared for.",
+      "ko": "손이 닿는 곳에 컵을 뒀어요. 두 사람이 손을 뻗더니 함께 씻었죠. 준비해 둔 답에는 그런 게 없었어요."
+    },
+    {
+      "en": "The owner showed somebody the seam. I thought they were complaining. They were showing where to start mending another coat.",
+      "ko": "주인이 누군가에게 솔기를 보여 줬어요. 불평하는 줄 알았죠. 다른 외투를 어디부터 기우면 되는지 알려 주는 거였어요."
+    },
+    {
+      "en": "I asked them to wear it. They raised both arms and laughed. I had been waiting for a sentence instead of that.",
+      "ko": "입어 보라고 했어요. 두 팔을 들고 웃더라고요. 나는 그 대신 문장 하나를 기다리고 있었네요."
+    },
+    {
+      "en": "Someone wrote a question in the gap. Now the page has three voices. It is less tidy and easier to return to.",
+      "ko": "누군가 틈에 질문을 썼어요. 이제 그 페이지에는 목소리가 셋이에요. 덜 단정하고, 다시 펼치기는 더 쉬워졌죠."
+    },
+    {
+      "en": "I read it aloud. They interrupted at different places. For the first time, the page sounded like both of them.",
+      "ko": "소리 내어 읽었어요. 서로 다른 곳에서 끼어들더라고요. 처음으로 그 페이지가 두 사람 모두의 목소리처럼 들렸어요."
+    },
+    {
+      "en": "I spoke to the person without taking the old name. They waited for me to finish. It was a longer wait than I expected to be given.",
+      "ko": "옛 이름을 받아들이지 않고 그 사람에게 말했어요. 끝까지 기다려 줬죠. 그렇게 오래 기다려 줄 거라고는 생각하지 못했어요."
+    },
+    {
+      "en": "I asked who they meant. They looked at me before answering. I hadn't realized how often it happened in the other order.",
+      "ko": "누구를 부르냐고 물었어요. 대답하기 전에 나를 보더라고요. 평소에는 그 순서가 얼마나 자주 반대였는지 몰랐어요."
+    },
+    {
+      "en": "Playtest",
+      "ko": "플레이 기록"
+    },
+    {
+      "en": "What did you expect to happen?",
+      "ko": "어떤 일이 일어날 거라고 예상했나요?"
+    },
+    {
+      "en": "Detailed play history is saved on this computer. Mark a surprising, confusing or repetitive moment so the next development pass can revisit it. F8 opens this page.",
+      "ko": "상세한 플레이 기록은 이 컴퓨터에 저장됩니다. 의외였거나, 혼란스럽거나, 반복적이었던 순간을 표시하면 다음 개발 때 그 상황을 다시 살펴볼 수 있습니다. F8로 이 페이지를 엽니다."
+    },
+    {
+      "en": "Surprising",
+      "ko": "의외였어요"
+    },
+    {
+      "en": "Confusing",
+      "ko": "혼란스러워요"
+    },
+    {
+      "en": "Repetitive",
+      "ko": "반복적이에요"
+    },
+    {
+      "en": "Other feedback",
+      "ko": "다른 의견 남기기"
+    },
+    {
+      "en": "Local playtest recording",
+      "ko": "이 컴퓨터에 플레이 기록 저장 중"
+    },
+    {
+      "en": "Moment recorded with the current world and conversation.",
+      "ko": "현재 세계와 대화를 함께 기록했습니다."
+    },
+    {
+      "en": "Playtest recording is unavailable. Your game still saves normally.",
+      "ko": "플레이 로그를 기록할 수 없습니다. 게임 진행은 평소처럼 저장됩니다."
+    },
+    {
+      "en": "Playtest log unavailable",
+      "ko": "플레이 로그 저장 불가"
+    },
+    {
+      "en": "Someone said the loaf settled an older debt. Nobody could say whose name was on it.",
+      "ko": "누군가 그 빵으로 오래된 빚을 갚았다고 했다. 누구 이름으로 된 빚인지는 아무도 말하지 못했다."
+    },
+    {
+      "en": "Accounts",
+      "ko": "들은 이야기"
+    },
+    {
+      "en": "Keep the names beside the words.",
+      "ko": "말 옆에 이름을 남겨 두세요."
+    },
+    {
+      "en": "Ask someone what they remember, or listen to their day.",
+      "ko": "무엇을 기억하는지 묻거나 오늘 하루의 이야기를 들어 보세요."
+    },
+    {
+      "en": "Heard from ",
+      "ko": "이야기한 사람: "
     }
   ],
   "topics": {
@@ -789,6 +1529,14 @@
       "정체",
       "빚",
       "자리"
+    ],
+    "help": [
+      "need a hand",
+      "help you",
+      "anything you need",
+      "도울",
+      "도와",
+      "부탁"
     ]
   }
 }

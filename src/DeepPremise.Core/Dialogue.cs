@@ -27,7 +27,10 @@ public sealed partial class SimulationRunner
         if (a.Id == "tavi") choices.Add(new("bill", "Offer to acknowledge the east chair's bill.", state.Obligations.Any(o => !o.Acknowledged)));
         foreach (var account in state.Accounts.Where(k => k.Source != a.Name).TakeLast(2))
             choices.Add(new($"share:{account.EventId}", $"Tell {a.Name} what {account.Source} said."));
-        return choices;
+        AddStoryChoices(a, choices);
+        AddReflectionChoices(a, choices);
+        return choices.OrderBy(c => c.Id.StartsWith("request:", StringComparison.Ordinal) || c.Id.StartsWith("reflection:", StringComparison.Ordinal) ? 0 :
+            c.Id == "help" ? 1 : c.Id == "personal" ? 2 : c.Id == "day" ? 3 : c.Id == "parcel" ? 4 : 5).ToArray();
     }
 
     public ActionResult Talk(string agentId, string topic, string? ownWords = null)
@@ -37,12 +40,18 @@ public sealed partial class SimulationRunner
         var choice = Choices(agentId).FirstOrDefault(c => c.Id == topic);
         if (choice == null || !choice.Enabled) return new(false, "That is not possible just now.");
         if (ownWords is { Length: > 400 }) return new(false, "Keep the question under 400 characters.");
+        RegisterVisit(agentId);
         var repeated = state.Questions.Any(q => q.AgentId == agentId && q.Topic == topic && state.Tick - q.Tick < 8);
         state.Questions.Add(new RecentQuestion(agentId, topic, state.Tick));
         Line("You", ownWords ?? choice.Text, ownWords != null);
+        Trace("dialogue", "selected", "The resident is present and the requested choice is currently enabled.", new { Agent = agentId, Topic = topic, Repeated = repeated,
+            Alternatives = Choices(agentId).Select(c => new { c.Id, c.Enabled }).ToArray() });
         string reply;
         switch (topic)
         {
+            case "help": reply = Help(a); break;
+            case "personal": reply = Personal(a); break;
+            case "neighbor": reply = Neighbor(a); break;
             case "parcel": reply = Recall(a, "parcel"); break;
             case "memory": reply = Memory(a); break;
             case "chair": reply = Chair(a); break;
@@ -67,7 +76,9 @@ public sealed partial class SimulationRunner
                 reply = "Stand here a moment. Yes, beside me. There... the ink has stopped looking like someone else's trouble. Thank you.";
                 break;
             default:
-                if (topic.StartsWith("share:"))
+                if (topic.StartsWith("request:", StringComparison.Ordinal)) reply = ResolveRequest(a, topic);
+                else if (topic.StartsWith("reflection:", StringComparison.Ordinal)) reply = Reflect(a, topic);
+                else if (topic.StartsWith("share:"))
                 {
                     var account = state.Accounts.Last(k => k.EventId.ToString() == topic[6..] && k.Source != a.Name);
                     var e = state.Events.FirstOrDefault(e => e.Id == account.EventId);
@@ -140,7 +151,11 @@ public sealed partial class SimulationRunner
         if (a.Hunger >= 3) return "I keep losing my place in the conversation. Have you eaten? I haven't, yet.";
         var news = a.Knowledge.LastOrDefault(k => k.Strength >= 4 && state.Tick - k.LearnedAt < 24);
         if (news != null && Next(3) == 0)
+        {
+            if (!state.Accounts.Any(account => account.EventId == news.EventId && account.Source == a.Name && account.Claim == news.Claim))
+                state.Accounts.Add(new PlayerAccount(news.EventId, news.Claim, a.Name, state.Tick));
             return (news.Witnessed ? "Something small: " : $"I heard from {news.Source}: ") + news.Claim;
+        }
         var variants = a.Id switch
         {
             "mara" => new[] { "The first batch caught on the bottom. Orren calls that a crust with ambition. He still took two.", "I had an argument with the dough. It rose anyway. Sit down before I give you a job.", "Someone returned my bowl with a flower in it. No name. I prefer that kind of accounting." },

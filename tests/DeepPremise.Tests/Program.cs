@@ -103,6 +103,8 @@ Check(!fallback.Generated && fallback.Text == context.GroundedReply && !fallback
 var malformed = new OpenAiVoice(new HttpClient(new StubHandler(HttpStatusCode.OK, "not json")));
 Check(!(await malformed.RenderAsync(context, "test-key", "test-model")).Generated, "Malformed AI output falls back");
 Check(handler.RequestBody.Contains("gpt-5.6-luna") && !handler.RequestBody.Contains("test-model") && handler.RequestBody.Contains("\"effort\":\"none\""), "AI requests are pinned to Luna without reasoning overhead");
+PlaytestChecks.Run(Check);
+StoryChecks.Run(Check);
 LocalizationChecks.Run(Check);
 Console.WriteLine($"RESULT: {checks - failures}/{checks} passed; {failures} failures");
 return failures == 0 ? 0 : 1;

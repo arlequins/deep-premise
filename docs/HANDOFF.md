@@ -17,12 +17,12 @@ Commit `3e86635` preserves the prior native GDScript prototype and tests. Active
 - Pure .NET 8 core with six agents, four places, seeded deterministic PRNG, 15-minute ticks, routines, needs, relationship-sensitive visits, encounters, sharing, local knowledge exchange, and forgetting.
 - Persistent authoritative world events separated from the public view and subjective dialogue accounts.
 - Conversation choices based on presence and known accounts; a few small actions with persistent consequences.
-- Contextual dialogue and repeated-question handling. English topic matching is the offline free-text fallback, not an LLM.
+- Contextual dialogue and repeated-question handling. English/Korean topic matching is the offline free-text fallback, not an LLM.
 - Godot C# native map, local resident selector, conversation history, choices, free-text entry, pause/wait, observations, personal notebook, and AI settings.
 - Detached character context sent to an optional OpenAI Responses API adapter. No tool calls or state-changing capabilities. Only the selected NPC's reply is rewritten.
 - API keys remain in memory. AI is off by default, with 20 requests/process session, rate spacing, timeout, bounded response reading, and local fallback.
 - Atomic disk replacement with backup and preservation of corrupt primary saves.
-- A headless executable suite with 45 assertions, including 100,000 ticks and mocked AI transport. No Godot runtime is needed to run it.
+- A headless executable suite with 70 assertions, including 100,000 ticks and mocked AI transport. No Godot runtime is needed to run it.
 - Windows export and portable packaging scripts. Use the .NET engine and .NET templates, not standard Godot executables.
 
 ## Important limits
@@ -46,7 +46,7 @@ No website, Beat, AWS, Steam account, or unrelated repository was modified durin
 
 ## Verification from this Windows handoff
 
-- Core and optional voice adapter: 45/45 executable checks passed.
+- Core and optional voice adapter: 70/70 executable checks passed.
 - The 100,000-tick test completed in about 0.6 seconds on this development machine; this is a six-agent core microbenchmark, not a large-world performance claim.
 - Native C# viewer smoke passed at 1440x900 and 1160x840. Both screenshots were visually inspected.
 - Portable Windows startup and restart both exited successfully with identical saved state during the short smoke run.
@@ -61,3 +61,16 @@ The user requested English/Korean support, a local running debug game for feedba
 The adapter pins `gpt-5.6-luna`, disables reasoning, and never upgrades models. An API key entered by the player is still required. Codex subscription credentials are not reused. No paid live API call was made during this update.
 
 For feedback, read `artifacts/live/context.json`, inspect `screen.png`, and check `game.log`. Verify timestamps and process liveness first. Screenshots are skipped while the notebook/settings window is open. `tools/run-debug.ps1` launches the session without duplicating an active debug process. `Play-Unseen-Order.cmd` is a convenient launcher. Preserve active player saves when restarting. Do not terminate unrelated processes.
+
+
+## Version 0.3.0: stories and explicit playtest consent
+
+The first player explicitly requested detailed local recording of all play and simulation decisions for later development. See `docs/PLAYTESTING.md`. Recording is on by default. Credentials never enter it. Keep these private local artifacts out of Git and release packages. A state-hash verified replay tool supports exact sequence restoration without touching the original save.
+
+Added six recurring request patterns (bread, repair, letter, keepsake, supper, conflicting accounts), a promise notebook, observation and morning-rest actions, and twelve personal conversation scenes with two response approaches and later follow-through. Later outcomes become world events in the presence of another resident before the player hears the return dialogue. Current ties affect the conversation coda. Familiarity grows across days; the player can advance to morning rather than wait in real time.
+
+Daily socially weighted visit plans and sustainable variable provisioning prevent all later days from collapsing into a single routine or permanent starvation. Older v3 saves add default story state; existing notebooks and world position are preserved. Recurring story history and personal conversations are bounded. English is canonical; all new authored player-facing text has Korean localization.
+
+The native F8 playtest page accepts surprise, confusion, repetition, and freeform markers. Read them alongside the visible options and trace; do not equate random variety with a successful surprise. Current content is finite. No measured playtime or unlimited novelty is claimed.
+
+The notebook also retains sourced accounts heard in ordinary daily conversation, making later comparison and retelling accessible without a separate management system.

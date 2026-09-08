@@ -1,4 +1,4 @@
-UNSEEN ORDER — Conversation prototype 0.2.1
+UNSEEN ORDER — Conversation prototype 0.3.0
 
 Run Unseen-Order.exe. Keep all files and the data directory together.
 No Godot editor or .NET SDK installation is needed.
@@ -18,3 +18,10 @@ Saves: %APPDATA%/UnseenOrder/conversation-v3.json
 An automatic backup is kept beside the save.
 
 This is a small local prototype. No BGM, Steam integration, or installer.
+
+
+MORE TO TALK ABOUT
+Ask whether a neighbor needs a hand. Promises appear in the notebook and may involve another person or a later visit. Look around at a place to notice details. Rest until morning from Your notes when you want to move to another day. Returning to people can open more personal conversations.
+
+FIRST-PLAYER RECORDING
+Detailed play history is saved locally in the game's user data folder under playtests. It includes conversation input, notes, choices, world state changes and simulation decisions for development. API keys are never recorded. Press F8 to mark a surprising, confusing or repetitive moment and describe what you expected. No telemetry is uploaded.

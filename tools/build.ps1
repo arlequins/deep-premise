@@ -22,7 +22,7 @@ New-Item -ItemType Directory -Force dist/conversation | Out-Null
 if ($LASTEXITCODE -ne 0 -or (Select-String -Path .tools/export-csharp.log -Pattern '^ERROR:' -Quiet)) { throw 'Export failed; inspect .tools/export-csharp.log.' }
 Copy-Item game/assets/GODOT-LICENSE.txt,game/assets/OFL.txt dist/conversation -Force
 Copy-Item docs/PLAY.txt dist/conversation/PLAY.txt -Force
-Compress-Archive -Path dist/conversation/* -DestinationPath dist/Unseen-Order-0.2.1-Windows-x64.zip -Force
-Get-FileHash dist/Unseen-Order-0.2.1-Windows-x64.zip,dist/conversation/Unseen-Order.exe,dist/conversation/Unseen-Order.pck -Algorithm SHA256 |
+Compress-Archive -Path dist/conversation/* -DestinationPath dist/Unseen-Order-0.3.0-Windows-x64.zip -Force
+Get-FileHash dist/Unseen-Order-0.3.0-Windows-x64.zip,dist/conversation/Unseen-Order.exe,dist/conversation/Unseen-Order.pck -Algorithm SHA256 |
     ForEach-Object { $_.Hash.ToLowerInvariant() + '  ' + (Split-Path $_.Path -Leaf) } | Set-Content -Encoding ascii dist/SHA256SUMS.txt
-Write-Host 'Portable package: dist/Unseen-Order-0.2.1-Windows-x64.zip'
+Write-Host 'Portable package: dist/Unseen-Order-0.3.0-Windows-x64.zip'

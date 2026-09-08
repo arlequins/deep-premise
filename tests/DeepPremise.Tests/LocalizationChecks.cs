@@ -10,6 +10,7 @@ static class LocalizationChecks
         var ko = new TextCatalog("ko"); var en = new TextCatalog("en");
         check(ko.Text("Pause") != "Pause" && en.Text("Pause") == "Pause", "English and Korean UI catalogs");
         check(TextCatalog.TopicFor("파란 꾸러미를 봤나요?") == "parcel" && TextCatalog.TopicFor("기억이 확실한가요?") == "memory" && TextCatalog.TopicFor("의자 청구서가 뭐죠?") == "chair", "Korean free-text topic matching");
+        check(TextCatalog.TopicFor("제가 도울 일이 있나요?") == "help", "Korean help questions open conversation without committing a favor");
         var original = new ConversationLine(1, 32, "You", "Mara, keep my exact words.", true);
         check(ko.Line(original) == original.Text, "Player-entered text is never rewritten by localization");
         var r = new SimulationRunner(231);

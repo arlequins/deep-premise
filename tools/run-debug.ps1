@@ -26,8 +26,10 @@ $engine = $consoleEngine.Replace('_console.exe', '.exe')
 $logDirectory = Join-Path $projectRoot 'artifacts/live'
 New-Item -ItemType Directory -Force $logDirectory | Out-Null
 $logPath = Join-Path $logDirectory 'game.log'
-$gameArguments = @('--path', ('"' + $projectRoot + '"'), '--log-file', ('"' + $logPath + '"'), '--', '--debug-session')
+$gameArguments = @('--path', ('"' + $projectRoot + '"'), '--log-file', ('"' + $logPath + '"'), '--', '--debug-session', '--start-paused')
 if ($Language -ne '') { $gameArguments += '--language=' + $Language }
 $gameProcess = Start-Process -FilePath $engine -ArgumentList $gameArguments -WorkingDirectory $projectRoot -WindowStyle Normal -PassThru
 Write-Host "Debug game started (PID $($gameProcess.Id))."
 Write-Host "Feedback context: $contextFile"
+
+Write-Host "The opening scene is paused. Press Space to start; F8 marks playtest feedback."
