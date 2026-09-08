@@ -1,0 +1,9 @@
+.godot/
+.tools/
+dist/
+build/
+artifacts/*
+!artifacts/.gitkeep
+*.log
+.DS_Store
+*.tmp
