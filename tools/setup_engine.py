@@ -1,41 +1,45 @@
-"""Download checksum-pinned official Godot binaries into this project's .tools only."""
-import argparse, hashlib, json, os, pathlib, platform, urllib.request, zipfile
+"""Prepare checksum-pinned Godot .NET binaries in this repository's .tools directory."""
+import argparse
+import hashlib
+import json
+import pathlib
+import platform
+import urllib.request
+import zipfile
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--templates', action='store_true')
 args = parser.parse_args()
-manifest = json.loads((ROOT / 'tools/godot-release.json').read_text())
-suffix = {'Darwin': 'macos.universal.zip', 'Windows': 'win64.exe.zip', 'Linux': 'linux.x86_64.zip'}[platform.system()]
+if platform.system() != 'Windows':
+    raise SystemExit('This preparation script currently targets Windows x64. The C# core is platform independent.')
+manifest = json.loads((ROOT / 'tools/godot-dotnet-release.json').read_text(encoding='utf-8-sig'))
 cache = ROOT / '.tools'
 cache.mkdir(exist_ok=True)
 for asset in manifest['assets']:
-    if not asset['name'].endswith(suffix) and not (args.templates and asset['name'].endswith('_export_templates.tpz')):
+    template = asset['name'].endswith('.tpz')
+    if template and not args.templates:
         continue
     archive = cache / asset['name']
     if not archive.exists():
+        temporary = archive.with_suffix(archive.suffix + '.download')
         print('Downloading', asset['name'], flush=True)
-        urllib.request.urlretrieve(asset['browser_download_url'], archive)
-    actual = 'sha256:' + hashlib.sha256(archive.read_bytes()).hexdigest()
-    if actual != asset['digest']:
+        urllib.request.urlretrieve(asset['browser_download_url'], temporary)
+        temporary.replace(archive)
+    with archive.open('rb') as stream:
+        digest = 'sha256:' + hashlib.file_digest(stream, 'sha256').hexdigest()
+    if digest != asset['digest']:
         raise SystemExit('Checksum mismatch; refusing archive: ' + asset['name'])
-    if asset['name'].endswith('.tpz'):
-        with zipfile.ZipFile(archive) as z:
-            for name in ['templates/windows_release_x86_64.exe', 'templates/windows_debug_x86_64.exe']:
-                z.extract(name, cache)
-    elif platform.system() == 'Darwin':
-        import subprocess
-        subprocess.run(['ditto', '-x', '-k', str(archive), str(cache)], check=True)
-    else:
-        with zipfile.ZipFile(archive) as z:
-            z.extractall(cache)
+    destination = cache / ('mono-templates' if template else 'mono')
+    with zipfile.ZipFile(archive) as contents:
+        for name in contents.namelist():
+            if template and not ('windows' in name and 'x86_64' in name):
+                continue
+            target = (destination / name).resolve()
+            if not target.is_relative_to(destination.resolve()):
+                raise SystemExit('Unsafe archive path')
+            contents.extract(name, destination)
     print('Verified', asset['name'], flush=True)
-if platform.system() == 'Darwin':
-    engine = cache / 'Godot.app/Contents/MacOS/Godot'
-elif platform.system() == 'Windows':
-    engine = next(cache.glob('Godot*_win64.exe'))
-else:
-    engine = next(cache.glob('Godot*_linux.x86_64'))
-if platform.system() != 'Windows':
-    engine.chmod(0o755)
-(cache / 'engine-path.txt').write_text(str(engine))
+engine = next((cache / 'mono').glob('*/Godot*_mono_win64_console.exe'))
+(cache / 'engine-path.txt').write_text(str(engine), encoding='utf-8')
 print(engine)

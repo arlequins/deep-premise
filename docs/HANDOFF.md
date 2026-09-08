@@ -1,80 +1,55 @@
-# Windows development handoff — 2026-09-08
+# Development handoff — conversation slice
 
-## Immediate scope
+## Current direction
 
-The user is moving development from macOS to Windows. This commit is an explicitly requested **work-in-progress checkpoint**, not a release. Stop at committing and pushing this checkpoint. Resume implementation on the destination machine when instructed.
+The user changed the technical direction to **Godot 4 .NET + C# + independent simulation core**. The user wants a small first playable slice focused on dialogue and the gradual experience that familiar assumptions may not hold. No BGM is needed. Do not restore broad management or tactical features merely because they existed in an earlier checkpoint.
 
-Project title: **Unseen Order**. Repository: **arlequins/deep-premise**. Working branch: **feature/prototype-v1**.
+The central quality target is **surprise arising from interacting patterns**. The world must not be entirely AI-generated. Stable habits, needs, relationships, incomplete knowledge, and player actions should combine into outcomes that are understandable afterwards but not always predictable in advance. AI is optional dialogue presentation, not an omniscient world author.
 
-## Latest binding decisions
+Use English for all repository content, code, documentation, and in-game text. Chat with the user in Korean. Keep hidden world mechanics out of user-facing development updates. Inform the user of significant modifications/deletions; ordinary in-scope work is authorized. No extra tasks or agents unless explicitly requested.
 
-- Use a real game engine. **No Electron, embedded browser, or webview.** Godot 4.7.2 stable / GDScript / Compatibility renderer was selected for the native 2D prototype.
-- Target a standalone Windows x64 client, eventually suitable for Steam. The intended eventual delivery is a downloadable release, preferably an installer plus a portable bundle. Neither is built yet.
-- The player does not want hidden world design or mysteries explained. Discuss engineering status without spoiling world mechanisms.
-- No separate promotional website and no game-specific AWS hosting. Put any eventual public introduction in **Beat**. No Beat modifications have been made.
-- The user authorized game-related implementation, testing, commits and eventual release. Ask before unrelated work or changes/deletions outside that scope. Preserve other projects and their worktrees.
-- Do not resume the cancelled AWS provisioning request. The existing AWS task confirmed that no roles, stacks, or existing services were changed.
-- Do not create extra tasks or spawn agents without an applicable instruction authorizing that.
+## Preserved work
 
-## Product constraints to preserve
+Commit `3e86635` preserves the prior native GDScript prototype and tests. Active GDScript simulation/UI files were removed during the C# transition. Its `world-v2.json` save format is not migrated or overwritten. New saves use `conversation-v3.json`.
 
-- One stable world, deep recurring consequences rather than a succession of unrelated settings.
-- Limited in-world player authority. NPC intentions, relationship scores and objective event traces stay internal.
-- Information arrives through situated reports, letters, witnesses and records; it can be delayed or incomplete. Investigation need not yield complete truth.
-- The player learns customs before their reasons and later questions those explanations. Do not turn the game into an encyclopedia or a riddle with a mandatory answer.
-- Autonomous simulation should remain interesting unattended for 30–120 minutes. Returning should make the player curious about observable changes.
-- Explicit simulation rules determine facts. Generative AI is optional presentation/planning assistance, never an unrestricted author of world facts.
-- Local tactical situations should use the same people and resources as the broader simulation, support meaningful player decisions, and resolve autonomously during absence.
-- Politics and capable individuals should emerge from resources, relationships, authority and information. Institutions matter as well as heroes.
-- Start small; the prototype asks whether players want to investigate what happened after 30–60 minutes away. Do not claim the full multigenerational design is already implemented.
-- Keep warmth, ordinary life and successful cooperation alongside conflict.
+## Implemented
 
-## Files currently present
+- Pure .NET 8 core with six agents, four places, seeded deterministic PRNG, 15-minute ticks, routines, needs, relationship-sensitive visits, encounters, sharing, local knowledge exchange, and forgetting.
+- Persistent authoritative world events separated from the public view and subjective dialogue accounts.
+- Conversation choices based on presence and known accounts; a few small actions with persistent consequences.
+- Contextual dialogue and repeated-question handling. English topic matching is the offline free-text fallback, not an LLM.
+- Godot C# native map, local resident selector, conversation history, choices, free-text entry, pause/wait, observations, personal notebook, and AI settings.
+- Detached character context sent to an optional OpenAI Responses API adapter. No tool calls or state-changing capabilities. Only the selected NPC's reply is rewritten.
+- API keys remain in memory. AI is off by default, with 20 requests/process session, rate spacing, timeout, bounded response reading, and local fallback.
+- Atomic disk replacement with backup and preservation of corrupt primary saves.
+- A headless executable suite with 32 assertions, including 100,000 ticks and mocked AI transport. No Godot runtime is needed to run it.
+- Windows export and portable packaging scripts. Use the .NET engine and .NET templates, not standard Godot executables.
 
-| Path | Status |
-| --- | --- |
-| `project.godot` | Godot project settings and native entry scene |
-| `export_presets.cfg` | Draft Windows x64 export preset using locally downloaded templates |
-| `game/main.tscn` | Entry scene; **references missing `game/main.gd`** |
-| `game/core/world.gd` | Initial port of simulation, bounded memories/reports, observation projection and player commands; unverified |
-| `game/core/session.gd` | Tick scheduler, save/backup handling and command entry point; unverified |
-| `game/core/automation.gd` | Draft opt-in authenticated loopback connection for automation; unverified |
-| `game/ui/city_map.gd` | Native CanvasItem city rendering and place selection; not connected to an application UI |
-| `game/assets/` | Native SVG icon, bundled Korean font, engine/font license notices |
-| `tools/godot-release.json` | Official Godot 4.7.2 asset URLs and SHA-256 digests |
-| `tools/setup_engine.py` | Download/checksum/extraction helper for Windows, macOS and Linux; templates option extracts Windows templates |
+## Important limits
 
-The game has no HTML/CSS/JavaScript renderer, Node runtime, npm dependency manifest, website or AWS deployment code.
+- This is a conversation prototype, not the original full society design. Characters and dialogue topics are authored; dynamic state selects and combines outcomes. There is a finite content vocabulary.
+- The knowledge mechanics are deliberately not explained here; inspect the core when changing them, and keep implementation explanations out of player-facing text.
+- Core identity and roles are simple. No full faction formation, generations, law, ecology, tactical battle, or commercial Steam integration is implemented.
+- Generated prose can contradict constraints even with a careful prompt. The adapter's lack of mutation access protects simulation state, not semantic accuracy of every line. Further dialogue evaluation is needed before commercial use.
+- Live paid AI requests have not been validated without a user-provided API key. Mock success, rate error, malformed output, and world-state isolation are tested.
+- Mobile support is architectural intent only. Neither mobile UI nor exports are verified.
+- Exported Windows files are unsigned. No installer or public release is claimed. Prefer the portable ZIP for local play.
+- No catch-up ticks on app restart. While open, pause and notebook windows stop automatic ticking; conversations still advance one tick.
 
-## Verified versus not verified
+## Next useful work
 
-Verified on macOS before this handoff:
+Observe actual play before expanding the feature list. Evaluate whether users compare accounts, revisit people, and notice changed answers. Measure repeated content, grounded AI replies, and causal variety across many seeds. Add a small number of reusable event patterns that genuinely change conversation context rather than more explanatory lore.
 
-- Official macOS Godot archive and Windows export-template archive were downloaded; their SHA-256 values matched the pinned manifest.
-- Korean font and associated license files are present.
-- Repository was initially empty with no remote branch or commits.
+Treat the core as the reusable asset. Keep Godot types out of it. Keep the optional network adapter outside it. Use explicit domain actions for consequences; free text must not silently turn into resource transfers.
 
-**Not verified:** GDScript parsing, scene loading, native UI, native saves, automation protocol, unattended balance, Windows export, installer, Steam integration.
+No website, Beat, AWS, Steam account, or unrelated repository was modified during this migration.
 
-An earlier Electron prototype passed some JavaScript/browser tests. Those tests **do not validate this Godot rewrite** and must not be reported as current native-game coverage. The superseded prototype was moved out of the repository to a macOS temporary folder; it is not a dependency or part of this handoff. Do not restore its architecture.
+## Verification from this Windows handoff
 
-## Recommended continuation order
-
-1. Read repository instructions and inspect branch/status before editing. Run `py -3 tools/setup_engine.py --templates` to prepare the pinned engine on Windows.
-2. Validate the current GDScript files and fix actual parser/type errors. This port was interrupted before the first native validation pass.
-3. Implement `game/main.gd` and native Control-based panels: time controls, player-owned resources, standing policy, city/place/resident views, letters with delayed investigation, notes and local tactical controls. Connect `GameSession` and `CityMap` without exposing `world.s` to UI or automation.
-4. Test save round trips and corruption recovery, input validation, bounded memory, deterministic replay, hidden-state projection, causal policy effects and long unattended runs. Review numeric/type validation of all externally supplied actions before enabling automation.
-5. Review the draft TCP automation implementation for buffering, UTF-8 split handling, response delivery, authentication and disconnects. It is **not yet an MCP server**: a stdio MCP adapter, protocol tests and user enable/disable controls still need implementation.
-6. Add native UI and packaged-startup smoke checks. Visually inspect Korean typography and minimum-window layout on Windows. Ensure the final player app does not require Python or development tools.
-7. Export Windows `.exe` + `.pck`, build portable ZIP and an installer, test clean install/start/save/restart, and provide checksums and accurate release notes. No installer script or CI/release workflow exists yet.
-8. Commit and publish only after those checks. Release authorization was given earlier; do not represent this checkpoint as a release.
-9. Once a real release URL exists, add a small spoiler-free introduction/download link to Beat using its current conventions and an isolated checkout. Inspect its own instructions and branch protections first. Do not alter AWS resources for this task.
-
-## Important implementation gaps
-
-- The draft is a small prototype, not a complete simulation of generations, war, ecology, law and culture. Family identity is currently simple; births/succession and a complete long-term history model are not implemented.
-- The current main scene cannot run because its script is missing. Do not conceal this with a placeholder that claims playability.
-- Save schema is version 2. There is no migration from the superseded Electron schema and no released player save to migrate.
-- Save files use the game's custom user-data directory `UnseenOrder`; avoid overwriting user data during tests. Use temporary test directories.
-- `.tools`, `.godot`, build products and local screenshots are intentionally ignored. They should not be committed or copied from macOS to Windows.
-- The checkpoint has no compiled Windows binary, release tag, GitHub release or AWS deployment.
+- Core and optional voice adapter: 32/32 executable checks passed.
+- The 100,000-tick test completed in about 0.6 seconds on this development machine; this is a six-agent core microbenchmark, not a large-world performance claim.
+- Native C# viewer smoke passed at 1440x900 and 1160x840. Both screenshots were visually inspected.
+- Portable Windows startup and restart both exited successfully with identical saved state during the short smoke run.
+- The packaged app was launched with global .NET lookup disabled and an intentionally absent DOTNET_ROOT; its bundled runtime loaded successfully.
+- Export log contains no ERROR entries. SHA-256 sums are generated under dist.
+- The ZIP is a local artifact, not a published Steam or GitHub release. No live paid AI request was made.

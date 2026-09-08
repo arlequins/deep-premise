@@ -1,0 +1,19 @@
+UNSEEN ORDER — Conversation prototype 0.2.0
+
+Run Unseen-Order.exe. Keep all files and the data directory together.
+No Godot editor or .NET SDK installation is needed.
+
+Walk to a nearby place. Choose someone within earshot. Ask, listen,
+compare stories, or make a small request. Let time pass and return.
+The world runs without AI. Space pauses it. The notebook stores your notes.
+Scroll the conversation choices to see additional options.
+
+Optional AI: Notebook / AI > AI voice.
+Requires your own OpenAI API key and an available model ID.
+Usage may incur charges. The key stays in memory for this session.
+Without AI, typed questions use topic matching; buttons expose all actions.
+
+Saves: %APPDATA%/UnseenOrder/conversation-v3.json
+An automatic backup is kept beside the save.
+
+This is a small local prototype. No BGM, Steam integration, or installer.
