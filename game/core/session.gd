@@ -17,8 +17,8 @@ func open(directory: String = "") -> bool:
 	DirAccess.make_dir_recursive_absolute(folder)
 	save_file=folder.path_join("world-v2.json")
 	if FileAccess.file_exists(save_file):
-		if not world.load_state(JSON.parse_string(FileAccess.get_file_as_string(save_file))):
-			if not world.load_state(JSON.parse_string(FileAccess.get_file_as_string(save_file+".bak"))):
+		if not world.load_state(read_save(save_file)):
+			if not world.load_state(read_save(save_file+".bak")):
 				save_error="저장 파일을 읽지 못했습니다. 원본을 보존했습니다. 저장 폴더를 확인해 주세요."
 				return false
 			# Keep the damaged primary for diagnosis before restoring its backup.
@@ -52,7 +52,7 @@ func observe() -> Dictionary:
 func command(action: Dictionary) -> Dictionary:
 	if not running: return {"error":"세계가 아직 열리지 않았습니다."}
 	if action.get("type")=="speed":
-		if action.get("value") not in [0,1,4,12]: return {"error":"지원하지 않는 속도입니다."}
+		if not world.valid_integer(action.get("value"),0,12) or action.get("value") not in [0,1,4,12]: return {"error":"지원하지 않는 속도입니다."}
 		speed=int(action.value)
 	else:
 		var error=world.act(action)
@@ -69,7 +69,7 @@ func save() -> bool:
 	if file==null:
 		save_error="저장하지 못했습니다. 저장 공간과 폴더 권한을 확인해 주세요."
 		return false
-	file.store_string(JSON.stringify(world.s))
+	file.store_string(JSON.stringify(world.s, "", true, true))
 	file.flush()
 	var error=file.get_error()
 	file.close()
@@ -85,3 +85,9 @@ func save() -> bool:
 		return false
 	save_error=""
 	return true
+
+func read_save(path: String):
+	if not FileAccess.file_exists(path): return null
+	var parser = JSON.new()
+	if parser.parse(FileAccess.get_file_as_string(path)) != OK: return null
+	return parser.data

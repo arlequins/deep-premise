@@ -355,7 +355,8 @@ func act(a: Dictionary) -> String:
 				r.investigated=true
 				s.errands.append({"event_id":r.event_id,"at":s.tick+12+int(rand()*18)})
 		"track", "talk":
-			var id=int(a.get("id",-1))
+			if not valid_integer(a.get("id"), 0, s.people.size()-1): return "주민을 찾지 못했습니다."
+			var id=int(a.id)
 			if id<0 or id>=s.people.size(): return "주민을 찾지 못했습니다."
 			var p=s.people[id]
 			if kind=="track":
@@ -391,7 +392,7 @@ func act(a: Dictionary) -> String:
 				if units.is_empty(): return "행동할 대원을 선택하세요."
 				var u=units[0]
 				if kind=="move":
-					if not a.has("x") or not a.has("y"): return "이동할 칸을 선택하세요."
+					if not valid_integer(a.get("x"), 0, 6) or not valid_integer(a.get("y"), 0, 4): return "이동할 칸을 선택하세요."
 					if a.x!=int(a.x) or a.y!=int(a.y) or a.x<0 or a.x>6 or a.y<0 or a.y>4 or distance(u,a)!=1: return "인접한 칸에 이동할 수 있습니다."
 					if (s.tactical.units+s.tactical.enemies).any(func(v): return v.hp>0 and v.x==a.x and v.y==a.y): return "이미 사람이 있는 자리입니다."
 					u.x=a.x
@@ -430,8 +431,66 @@ func observe() -> Dictionary:
 		"tracked":s.tracked.duplicate(),"places":PLACES.duplicate(true),"people":people,"reports":reports,
 		"unread":unread,"since_visit":since,"investigations":s.errands.size(),"tactical":tactical}
 
+func valid_integer(value, low: int, high: int) -> bool:
+	return (value is int or value is float) and is_finite(float(value)) and value == floor(float(value)) and value >= low and value <= high
+
+func shape_matches(value, sample) -> bool:
+	if sample is Dictionary:
+		if not value is Dictionary: return false
+		for key in sample:
+			if not value.has(key) or not shape_matches(value[key], sample[key]): return false
+		return true
+	if sample is Array: return value is Array
+	if sample is int or sample is float: return (value is int or value is float) and is_finite(float(value))
+	return typeof(value) == typeof(sample)
+
 func load_state(data) -> bool:
 	if not data is Dictionary or data.get("version")!=2: return false
+	var template = SimWorld.new()
+	template.start()
+	if not shape_matches(data, template.s): return false
+	if not valid_integer(data.tick, 0, 1000000000) or not valid_integer(data.rng, 1, 4294967295): return false
+	if not valid_integer(data.representative, 0, 71): return false
+	if data.public_policy not in ["open", "reserve"] or data.notes.length()>5000: return false
+	if data.reports.size()>300 or data.events.size()>2500 or data.pending.size()>1000 or data.errands.size()>300 or data.tracked.size()>12 or data.obligations.size()>1000: return false
+	for id in data.tracked:
+		if not valid_integer(id,0,71): return false
+	var place_ids = PLACES.map(func(p): return p.id)
+	for p in data.people:
+		if not p is Dictionary or not valid_integer(p.get("id"),0,71): return false
+		var person_shape = template.s.people[int(p.id)].duplicate(true)
+		person_shape.ties = {}
+		if not shape_matches(p, person_shape): return false
+		if not valid_integer(p.house,0,5) or not valid_integer(p.partner,-1,71) or not valid_integer(p.faction,0,2): return false
+		if p.location not in place_ids or p.work not in place_ids or p.memory.size()>40: return false
+		for id in p.ties:
+			if not str(id).is_valid_int() or not valid_integer(int(id),0,71): return false
+			if not shape_matches(p.ties[id],0.0): return false
+	for r in data.reports + data.pending:
+		if not shape_matches(r, template.s.reports[0]) or not valid_integer(r.subject,-1,71): return false
+	for e in data.events:
+		if not shape_matches(e,{"id":"","tick":0,"kind":"","actors":[],"place":"","facts":{}}): return false
+		for id in e.actors:
+			if not valid_integer(id,0,71): return false
+		if e.kind == "market" and not shape_matches(e.facts,{"price":0.0}): return false
+		if e.kind == "convoy" and not shape_matches(e.facts,{"cargo":0}): return false
+	for q in data.errands:
+		if not shape_matches(q,{"event_id":"","at":0}): return false
+	for o in data.obligations:
+		if not shape_matches(o,{"debtor":0,"creditor":0,"due":0,"paid":false}): return false
+		if not valid_integer(o.debtor,0,71) or not valid_integer(o.creditor,0,71): return false
+	if not data.tactical.is_empty():
+		template.start_convoy()
+		if not shape_matches(data.tactical,template.s.tactical): return false
+		var t = data.tactical
+		if t.units.size()!=3 or t.enemies.size()!=2 or t.cover.size()>8: return false
+		for u in t.units:
+			if not shape_matches(u,{"id":0,"x":0,"y":0,"hp":0,"ap":0}) or not valid_integer(u.id,0,71): return false
+		for e in t.enemies:
+			if not shape_matches(e,{"id":"","x":0,"y":0,"hp":0}): return false
+		for cell in t.units + t.enemies + t.cover + [t.wagon]:
+			if not shape_matches(cell,{"x":0,"y":0}): return false
+			if not valid_integer(cell.x,0,6) or not valid_integer(cell.y,0,4): return false
 	for key in ["people","events","pending","reports","errands","obligations","tracked"]:
 		if not data.get(key) is Array: return false
 	for key in ["tick","rng","next_event","next_report","treasury","stores","market_food","price","rain","soil","repair","representative","last_convoy","last_seen","last_petition"]:
@@ -447,5 +506,18 @@ func load_state(data) -> bool:
 		for key in ["name","species","job","work","location"]:
 			if not p.get(key) is String: return false
 		if not p.get("alive") is bool: return false
-	s=data.duplicate(true)
+	s=restore_integer_fields(data)
 	return true
+
+func restore_integer_fields(value, field: String = ""):
+	if value is Dictionary:
+		var result = {}
+		for key in value: result[key] = restore_integer_fields(value[key], str(key))
+		return result
+	if value is Array:
+		var result = []
+		for item in value: result.append(restore_integer_fields(item, field))
+		return result
+	if value is float and field in ["version","seed","rng","tick","next_event","next_report","representative","last_convoy","last_seen","last_petition","tracked","actors","id","house","resting","partner","faction","continuity","written","arrives","subject","at","debtor","creditor","due","round","next_auto","x","y","hp","ap","cargo"]:
+		return int(value)
+	return value

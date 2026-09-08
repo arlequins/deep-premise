@@ -15,7 +15,10 @@ const GOLD=Color("cbb77f")
 func _ready() -> void:
 	mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
 	clip_contents=true
-	font=load("res://game/assets/NotoSansKR.ttf")
+	var readable = FontVariation.new()
+	readable.base_font=load("res://game/assets/NotoSansKR.ttf")
+	readable.variation_opentype={"wght":500}
+	font=readable
 
 func location(p: Dictionary) -> Vector2:
 	return Vector2(p.x,p.y)*size
