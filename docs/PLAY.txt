@@ -1,27 +1,12 @@
-UNSEEN ORDER — Conversation prototype 0.3.0
+Unseen Order 0.9.1 — prototype archive checkpoint
 
-Run Unseen-Order.exe. Keep all files and the data directory together.
-No Godot editor or .NET SDK installation is needed.
+This is an experimental collection, not a finished game. The default is Type3, A World, Gathered. Its design is paused for reconsideration.
 
-Choose English or Korean at the top right.
-Walk to a nearby place. Choose someone within earshot. Ask, listen,
-compare stories, or make a small request. Let time pass and return.
-The world runs without AI. Space pauses it. The notebook stores your notes.
-Scroll the conversation choices to see additional options.
+Run Unseen-Order.exe. Keep the PCK and data directory beside the executable.
+Drag objects to rearrange the garden. Use the lower pouch buttons to place things; arrows browse three items at a time. Turn off the lights to warm stones. After growing a flower, click the hollow to send an expedition. Select an object to pack it without losing its traits.
 
-Optional AI: Notebook / AI > AI voice.
-Requires your own OpenAI API key. The model is fixed to GPT-5.6 Luna.
-Usage may incur charges. The key stays in memory for this session.
-Without AI, typed questions use topic matching; buttons expose all actions.
+Space: pause/resume. Escape: cancel selection. F8: record a feedback marker. The upper language button switches English/Korean.
 
-Saves: %APPDATA%/UnseenOrder/conversation-v3.json
-An automatic backup is kept beside the save.
+Saves are local in %APPDATA%/UnseenOrder. The active garden uses type3-garden-v11.json and can import the earlier v10 save without deleting it. Detailed local playtest recording is enabled at the first player's explicit request; game-only captures and logs are written under artifacts in the package folder. No live AI requests are made by the garden.
 
-This is a small local prototype. No BGM, Steam integration, or installer.
-
-
-MORE TO TALK ABOUT
-Ask whether a neighbor needs a hand. Promises appear in the notebook and may involve another person or a later visit. Look around at a place to notice details. Rest until morning from Your notes when you want to move to another day. Returning to people can open more personal conversations.
-
-FIRST-PLAYER RECORDING
-Detailed play history is saved locally in the game's user data folder under playtests. It includes conversation input, notes, choices, world state changes and simulation decisions for development. API keys are never recorded. Press F8 to mark a surprising, confusing or repetitive moment and describe what you expected. No telemetry is uploaded.
+Earlier source prototypes, tests, and design notes are preserved in the repository. No Steam integration or mobile build is included.

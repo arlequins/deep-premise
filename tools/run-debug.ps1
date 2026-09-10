@@ -1,4 +1,14 @@
-param([switch]$SkipBuild, [ValidateSet('en','ko','')][string]$Language = '')
+param([switch]$SkipBuild, [switch]$FreshRun, [ValidateSet('en','ko','')][string]$Language = '', [ValidateSet('type0','type2','type3')][string]$Type = 'type3')
+if ($Type -eq 'type3') {
+    $gardenLanguage = if ($Language -eq '') { 'ko' } else { $Language }
+    & (Join-Path $PSScriptRoot 'run-type3.ps1') -SkipBuild:$SkipBuild -FreshRun:$FreshRun -Language $gardenLanguage
+    exit $LASTEXITCODE
+}
+if ($Type -eq 'type2') {
+    $cityLanguage = if ($Language -eq '') { 'ko' } else { $Language }
+    & (Join-Path $PSScriptRoot 'run-type2.ps1') -SkipBuild:$SkipBuild -FreshRun:$FreshRun -Language $cityLanguage
+    exit $LASTEXITCODE
+}
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path $PSScriptRoot -Parent
 Set-Location $projectRoot
@@ -26,10 +36,11 @@ $engine = $consoleEngine.Replace('_console.exe', '.exe')
 $logDirectory = Join-Path $projectRoot 'artifacts/live'
 New-Item -ItemType Directory -Force $logDirectory | Out-Null
 $logPath = Join-Path $logDirectory 'game.log'
-$gameArguments = @('--path', ('"' + $projectRoot + '"'), '--log-file', ('"' + $logPath + '"'), '--', '--debug-session', '--start-paused')
+$gameArguments = @('--path', ('"' + $projectRoot + '"'), 'res://game/type0.tscn', '--log-file', ('"' + $logPath + '"'), '--', '--debug-session', '--start-paused')
 if ($Language -ne '') { $gameArguments += '--language=' + $Language }
+if ($FreshRun) { $gameArguments += '--fresh-run' }
 $gameProcess = Start-Process -FilePath $engine -ArgumentList $gameArguments -WorkingDirectory $projectRoot -WindowStyle Normal -PassThru
 Write-Host "Debug game started (PID $($gameProcess.Id))."
 Write-Host "Feedback context: $contextFile"
 
-Write-Host "The opening scene is paused. Press Space to start; F8 marks playtest feedback."
+Write-Host "People are already working. Drag a person to another place to change their work. Space pauses; F8 records feedback."

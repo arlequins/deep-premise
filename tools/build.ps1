@@ -17,12 +17,17 @@ if (-not $SkipTests) {
 }
 & $dotnet build DeepPremise.Godot.csproj --nologo
 if ($LASTEXITCODE -ne 0) { throw 'Viewer build failed.' }
-New-Item -ItemType Directory -Force dist/conversation | Out-Null
-& $engine --headless --path . --export-release 'Windows Desktop' dist/conversation/Unseen-Order.exe *> .tools/export-csharp.log
+$versionMatch = [regex]::Match((Get-Content project.godot -Raw), 'config/version="([0-9]+\.[0-9]+\.[0-9]+)"')
+if (-not $versionMatch.Success) { throw 'Missing project release version.' }
+$version = $versionMatch.Groups[1].Value
+$packageDirectory = "dist/Unseen-Order-$version-Windows-x64"
+if (Test-Path $packageDirectory) { throw "Package directory already exists: $packageDirectory. Preserve it or choose a new version." }
+New-Item -ItemType Directory -Force $packageDirectory | Out-Null
+& $engine --headless --path . --export-release 'Windows Desktop' "$packageDirectory/Unseen-Order.exe" *> .tools/export-csharp.log
 if ($LASTEXITCODE -ne 0 -or (Select-String -Path .tools/export-csharp.log -Pattern '^ERROR:' -Quiet)) { throw 'Export failed; inspect .tools/export-csharp.log.' }
-Copy-Item game/assets/GODOT-LICENSE.txt,game/assets/OFL.txt dist/conversation -Force
-Copy-Item docs/PLAY.txt dist/conversation/PLAY.txt -Force
-Compress-Archive -Path dist/conversation/* -DestinationPath dist/Unseen-Order-0.3.0-Windows-x64.zip -Force
-Get-FileHash dist/Unseen-Order-0.3.0-Windows-x64.zip,dist/conversation/Unseen-Order.exe,dist/conversation/Unseen-Order.pck -Algorithm SHA256 |
-    ForEach-Object { $_.Hash.ToLowerInvariant() + '  ' + (Split-Path $_.Path -Leaf) } | Set-Content -Encoding ascii dist/SHA256SUMS.txt
-Write-Host 'Portable package: dist/Unseen-Order-0.3.0-Windows-x64.zip'
+Copy-Item game/assets/GODOT-LICENSE.txt,game/assets/OFL.txt $packageDirectory
+Copy-Item docs/PLAY.txt "$packageDirectory/PLAY.txt"
+Compress-Archive -Path "$packageDirectory/*" -DestinationPath "$packageDirectory.zip"
+Get-FileHash "$packageDirectory.zip","$packageDirectory/Unseen-Order.exe","$packageDirectory/Unseen-Order.pck" -Algorithm SHA256 |
+    ForEach-Object { $_.Hash.ToLowerInvariant() + '  ' + (Split-Path $_.Path -Leaf) } | Set-Content -Encoding ascii "dist/SHA256SUMS-$version.txt"
+Write-Host "Portable package: $packageDirectory.zip"

@@ -1,101 +1,54 @@
-# Unseen Order
+# Unseen Order — Deep Premise
 
-A conversation-first simulation prototype. Six neighbors, four nearby places, and incomplete accounts of an ordinary morning.
+**Version: 0.9.1 — prototype archive checkpoint.** Development direction is paused for redesign after player feedback that the objective and motivation remain unclear. This is not a finished game or a validated fun design.
 
-**Status:** local Windows prototype 0.3.0. This is a small playable experiment, not a finished Steam release.
+Godot 4.7.2 .NET handles presentation; independent C#/.NET 8 cores handle simulation. Source and documentation are English; active prototypes support English and Korean.
 
-## Play
+## Preserved prototypes
 
-Extract `dist/Unseen-Order-0.3.0-Windows-x64.zip` and run `Unseen-Order.exe`. Keep the adjacent `.pck` and `data_*` directory with the executable. The portable package includes its .NET runtime; players do not install Godot, Python, or a development SDK.
+| Prototype | Status | Entry point |
+| --- | --- | --- |
+| Type0: habit world | Archived playable experiment; autonomous work and learned local rules | `game/type0.tscn` |
+| Type1: stolen factory | Concept debate only; never implemented | `docs/TYPE1_CONCEPT_REVIEW.md` |
+| Type2: Riverside Days | Playable city observation experiment | `game/type2.tscn` |
+| Type3: A World, Gathered | Latest playable ecology experiment; current default | `game/type3.tscn` |
 
-- Choose English or Korean in the top-right selector. The preference persists across restarts.
-- Choose a place on the map or with a location button.
-- Choose someone within earshot, then a conversation option.
-- Compare accounts, pass on something you heard, share food, or make a small request.
-- Time advances while the window is open. A conversation or a walk also takes time.
-- Space pauses the world. The notebook pauses time while open.
-- Use the notebook for observations and personal notes. Saves are automatic.
-- Start another neighborhood from the notebook to explore a fresh seed; the previous save is archived first.
+Earlier conversation, colony, caravan, defense, and salvage experiments are retained in source. Their implementation status and the feedback that superseded them are summarized in [the checkpoint](docs/PROTOTYPE_CHECKPOINT.md). No prototype is removed or silently promoted to an approved final direction.
 
-New saves use a random seed. The same seed and inputs are reproducible for development. Not every moment is surprising; the aim is for understandable habits to interact in unexpected ways.
-
-Saves: `%APPDATA%/UnseenOrder/conversation-v3.json`, with a backup. The earlier GDScript `world-v2.json` file is neither loaded nor overwritten. Corrupt saves are preserved during backup recovery.
-
-## Architecture
-
-- `src/DeepPremise.Core`: pure C# / .NET 8. World state, agents, relationships, needs, situated knowledge, deterministic ticks, dialogue intent, actions, persistence, and detached view models. No Godot dependency.
-- `src/DeepPremise.Godot`: native Godot 4.7.2 .NET presentation, input, map, conversations, notebook, and optional AI settings.
-- `src/DeepPremise.Dialogue`: optional OpenAI Responses API voice adapter. It receives a limited character context and cannot execute world actions.
-- `tests/DeepPremise.Tests`: dependency-light executable tests, including headless simulation and mocked AI transport.
-
-One tick is 15 in-world minutes. The viewer normally advances one tick every eight seconds. No catch-up simulation is performed for time spent with the app closed. The core is small by design: there is no war, full economy, multigenerational society, mobile UI, Steam integration, or BGM in this slice.
-
-## Optional AI dialogue
-
-Open **Notebook / AI → AI voice**. Enter an OpenAI API key, then enable it for this session. The model is pinned to `gpt-5.6-luna` with `reasoning.effort: none`; there is no automatic model upgrade. The key is kept only in memory and is not included in saves or source control. The current Codex conversation is not an embedded game AI service.
-
-Enabling sends your question, recent dialogue, and the selected resident's known accounts to OpenAI. API usage may incur charges. This prototype allows at most 20 requests per process session, with a 12-second timeout and automatic local fallback. No background simulation uses AI.
-
-The adapter follows the official [Responses API structured output guide](https://developers.openai.com/api/docs/guides/structured-outputs), requests `store: false`, and uses a constrained character prompt. This limits the model's role but does not guarantee perfect factual phrasing. Generated dialogue is presentation only; the model cannot alter resources, facts, or memories. Responses are saved in the local conversation transcript. Generated wording is not deterministic; simulation state remains deterministic.
-
-Without AI, free-text input uses English/Korean topic matching. Buttons provide all local interactions. The AI integration is tested with mocked HTTP responses; a live paid API round trip has not been verified in this workspace.
-
-## Development on Windows
-
-Install a .NET 8 SDK and Python 3, or use local runtimes already placed in `.tools`. Prepare the checksum-pinned Godot .NET engine and Windows templates:
+## Run locally
 
 ```powershell
-python tools/setup_engine.py --templates
+./tools/run-debug.ps1                 # Type3, Korean
+./tools/run-debug.ps1 -Type type2
+./tools/run-debug.ps1 -Type type0
+./tools/run-type3.ps1 -Language en
 ```
 
-Run tests without Godot:
+Launchers build with the local `.tools/dotnet` runtime and the configured Godot .NET engine. To prepare the engine and templates, run `python tools/setup_engine.py --templates`. Space pauses; F8 records a local feedback marker. Type3 uses dragging, light control, and a pouch paged three items at a time. Click the hollow after a first bloom to explore.
+
+## Validate and package
 
 ```powershell
-dotnet run --project tests/DeepPremise.Tests/DeepPremise.Tests.csproj
-```
-
-Build the native viewer and portable release:
-
-```powershell
+.tools/dotnet/dotnet.exe run --project tests/DeepPremise.Tests/DeepPremise.Tests.csproj
+.tools/dotnet/dotnet.exe build DeepPremise.Godot.csproj --nologo
 ./tools/build.ps1
 ```
 
-`build.ps1` prefers `.tools/dotnet/dotnet.exe` if it exists, then a system SDK. It imports the Godot project, exports Windows, checks export logs for errors, and creates a portable ZIP with SHA-256 checksums.
+The portable package is `dist/Unseen-Order-0.9.1-Windows-x64.zip`. The build script reads the version from `project.godot` and produces SHA-256 checksums. Build outputs and local tooling are not committed.
 
-For isolated native UI smoke tests:
+## Saves and local feedback
 
-```powershell
-$engine = (Get-Content .tools/engine-path.txt -Raw).Trim()
-& $engine --path . -- --smoke --save-dir=C:/temp/unseen-order-ui-test
-```
+Saves live in `%APPDATA%/UnseenOrder/`, with separate identities for each prototype. Type3 uses `type3-garden-v11.json`; it imports v10 only when no v11 save exists and preserves the old file. Fresh runs archive the current save first. Do not delete player saves when changing direction.
 
-Do not use an actual player save folder for automated tests. Native smoke mode saves screenshots under `artifacts` and exits. This developer-only mode is not part of the normal player flow.
+The player explicitly requested detailed local playtest recording. `artifacts/playtests/` stores actions, simulation decisions, exact state changes, and feedback markers. Current Type3 context and viewport captures are `artifacts/live/type3-context.json` and `type3-screen.png`. These remain local and are excluded from Git and exports. See [PLAYTESTING.md](docs/PLAYTESTING.md) for replay concepts and [TYPE3_GARDEN.md](docs/TYPE3_GARDEN.md) for current paths and rules.
 
-## Verification and limits
+## Architecture and limitations
 
-The headless suite covers deterministic continuation, detached observations, multiple seed histories, conversation reachability, sharing, player consequences, malformed saves, backup recovery, 100,000 ticks, and optional AI success/failure contracts. Native smoke checks exercise the actual C# viewer and two window sizes. See `docs/HANDOFF.md` for current implementation notes and remaining work.
+- `src/DeepPremise.Core`: engine-independent simulation and diagnostics.
+- `src/DeepPremise.Godot`: native rendering, controls, localization, and local persistence.
+- `src/DeepPremise.Dialogue`: optional historical Luna voice adapter; unused by Type0, Type2, and Type3.
+- `tests/DeepPremise.Tests`: deterministic simulation, interactions, migration, and replay checks.
 
-Code identifiers, comments, and development documentation use English. Authored English game text is canonical; Korean translations and topic keywords live in `src/DeepPremise.Core/Resources/ko.json`. Do not explain the hidden world mechanisms to the player in status reports or marketing copy.
+No Steam integration, commercial release validation, or mobile port is included. Passing tests establishes behavior, not enjoyment. Historical conversation documentation is retained under `docs/archive/`.
 
-## Notices
-
-Godot and bundled font license notices are in `game/assets` and included in the portable package. Game code and original content have no separate redistribution license granted. No website or AWS resources are part of this project.
-
-## Live feedback workflow
-
-Run `Play-Unseen-Order.cmd` or `tools/run-debug.ps1` to build and launch the native game with local diagnostics. The script respects the machine's PowerShell execution policy. A normal portable launch does not record debug screenshots.
-
-While the debug game runs, `artifacts/live/context.json` records the timestamp, process ID, language, place, selected resident, tick, pause state, model name, and recent displayed conversation. `screen.png` captures the game viewport roughly every five seconds and after UI changes; `game.log` holds engine errors. Screenshots are skipped while the notebook/AI settings window is open. API keys and personal notebook text are excluded from diagnostics. These local artifacts are ignored by Git.
-
-An assistant can consult these files when you give feedback. This is not an external monitoring service or continuous assistant observation. Verify timestamps and process liveness.
-
-Language changes never consume ticks or alter facts. Typed player text and notes stay verbatim. Existing authored conversations translate on display; new AI replies retain language-specific variants and their authored fallback. Older arbitrary AI prose without a canonical source remains verbatim.
-
-Luna reference: https://developers.openai.com/api/docs/models/gpt-5.6-luna
-
-
-## Longer conversations and playtest review
-
-Version 0.3.0 adds six recurring favors and twelve personal conversations with follow-up across days. Help, return visits, conflicting accounts, and separately arranged suppers create parallel reasons to speak with different residents. The notebook tracks only requests and thoughts the player has heard. Look around for local details; rest until morning from the notebook when ready.
-
-Detailed local playtest recording is enabled with the first player's explicit consent. Press **F8** to mark an expectation, surprise, confusion, or repetition. Run `tools/review-playtest.ps1` to verify and summarize the active recording. Full instructions and exact-state restoration are in [PLAYTESTING.md](docs/PLAYTESTING.md). Logs remain local and are excluded from Git and exports.
+Godot and font notices are in `game/assets`. No separate redistribution license is granted for original game code or content.

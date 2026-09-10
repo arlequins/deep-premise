@@ -34,7 +34,18 @@ public static class PlaytestReplay
             verified++;
         }
         var result = state.ToJsonString(new JsonSerializerOptions { WriteIndented = true });
-        var loaded = SimulationRunner.LoadJson(result);
+        IRecordedWorld loaded = state["Version"]!.GetValue<int>() switch
+        {
+            11 => Garden.GardenWorld.LoadJson(result),
+            10 => Garden.GardenWorld.LoadJson(result),
+            9 => City.CityWorld.LoadJson(result),
+            8 => Habits.HabitWorld.LoadJson(result),
+            7 => Defense.SalvageRun.LoadJson(result),
+            6 => Defense.DefenseSimulation.LoadJson(result),
+            5 => Caravan.CaravanSimulation.LoadJson(result),
+            4 => Colony.ColonySimulation.LoadJson(result),
+            _ => SimulationRunner.LoadJson(result)
+        };
         return new(result, sequence, loaded.Tick, verified, truncated);
     }
 }

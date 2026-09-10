@@ -66,7 +66,7 @@ public sealed class PlaytestRecorder : IDisposable
     private static readonly JsonSerializerOptions Json = new() { WriteIndented = false };
     private readonly Stopwatch clock = Stopwatch.StartNew();
     private readonly StreamWriter writer;
-    private readonly SimulationRunner world;
+    private readonly IRecordedWorld world;
     private JsonNode previous;
     private long sequence;
     private int checkpoints;
@@ -76,7 +76,7 @@ public sealed class PlaytestRecorder : IDisposable
     public string Failure { get; private set; } = "";
     public bool Healthy => Failure == "" && !disposed;
     public long LastSequence => sequence;
-    public PlaytestRecorder(string root, SimulationRunner runner, string version, string language)
+    public PlaytestRecorder(string root, IRecordedWorld runner, string version, string language)
     {
         world = runner;
         SessionId = DateTime.UtcNow.ToString("yyyyMMdd-HHmmss") + "-" + Guid.NewGuid().ToString("N")[..8];
@@ -86,7 +86,7 @@ public sealed class PlaytestRecorder : IDisposable
         File.WriteAllText(Path.Combine(DirectoryPath, "initial-state.json"), initial);
         File.WriteAllText(Path.Combine(DirectoryPath, "manifest.json"), JsonSerializer.Serialize(new
         {
-            Format = 1, SessionId, Version = version, StartedUtc = DateTime.UtcNow, Language = language,
+            Format = 1, WorldKind = world.RecordingKind, SessionId, Version = version, StartedUtc = DateTime.UtcNow, Language = language,
             Environment.OSVersion, Runtime = Environment.Version.ToString(), ProcessId = Environment.ProcessId,
             Consent = "Detailed local first-player playtest recording explicitly requested by the player.",
             InitialStateHash = Hash(initial), Includes = new[] { "player words", "notebook", "choices", "world decisions", "state deltas", "AI wording", "feedback" },

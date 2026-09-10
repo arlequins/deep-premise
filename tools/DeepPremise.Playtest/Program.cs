@@ -43,6 +43,7 @@ try
             if (action == "conversation") Count(residents, data["Resident"]!.GetValue<string>());
             if (action == "feedback") feedback.Add($"- Sequence {entry["Sequence"]}, tick {entry["Tick"]}: **{data["Detail"]!["Category"]}** — {data["Detail"]!["Text"]}");
         }
+        if (kind == "feedback") feedback.Add($"- Sequence {entry["Sequence"]}, tick {entry["Tick"]}: moment marker");
         if (kind == "conversation-result")
         {
             if (data!["Success"]!.GetValue<bool>()) Count(replies,data["Message"]!.GetValue<string>());
@@ -66,9 +67,13 @@ try
     report.AppendLine("\n## Actions\n");
     foreach (var (action,count) in actions.OrderByDescending(p => p.Value)) report.AppendLine($"- {action}: {count}");
     report.AppendLine("\n## Current story state\n");
-    foreach (var request in state["Stories"]!["Requests"]!.AsArray().Where(r => r!["Known"]!.GetValue<bool>()))
+    foreach (var request in (state["Stories"]?["Requests"]?.AsArray() ?? new JsonArray()).Where(r => r!["Known"]!.GetValue<bool>()))
         report.AppendLine($"- Request {request!["Id"]}: {request["Kind"]}, {request["Requester"]} → {request["Target"]}, {request["Status"]}");
-    report.AppendLine($"Personal conversations opened: {state["Stories"]!["Conversations"]!.AsArray().Count}.");
+    if (state["Stories"] != null) report.AppendLine($"Personal conversations opened: {state["Stories"]!["Conversations"]!.AsArray().Count}.");
+    else if(state["Version"]!.GetValue<int>() is 10 or 11) report.AppendLine($"Type3 garden: objects: {state["Objects"]!.AsArray().Count}; night: {state["Night"]}; glow: {state["DiscoveredGlow"]}; following: {state["DiscoveredFollowing"]}; seeds: {state["DiscoveredSeed"]}; bloom: {state["DiscoveredBloom"]}; trips: {state["Trips"]}; discoveries: {state["Discoveries"]}.");
+    else if(state["Version"]!.GetValue<int>()==9) report.AppendLine($"Type2 city: day {state["Day"]}; residents: {state["People"]!.AsArray().Count}; treasury: {state["Funds"]}; daily income: {state["LastIncome"]}; upkeep: {state["LastCost"]}.");
+    else if(state["Version"]!.GetValue<int>()==8) report.AppendLine($"Habit world: day {state["Day"]}; people: {state["People"]!.AsArray().Count}; strain: {state["Strain"]}; established: {state["Established"]}. Supplies: {state["Stock"]}.");
+    else report.AppendLine($"Run version: {state["Version"]}; wave: {state["Wave"]}; phase: {state["Phase"]}; hull: {state["Hull"]}; scrap: {state["Scrap"]}; kills: {state["Kills"]}.");
     report.AppendLine("\n## Decision trace index\n");
     foreach (var (decision,count) in decisions.OrderByDescending(p => p.Value)) report.AppendLine($"- {decision}: {count}");
     report.AppendLine("\n## Next review\n");

@@ -3,8 +3,8 @@ config_version=5
 
 [application]
 config/name="Unseen Order"
-config/version="0.3.0"
-run/main_scene="res://game/main.tscn"
+config/version="0.9.1"
+run/main_scene="res://game/type3.tscn"
 config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
 config/icon="res://game/assets/icon.svg"
 config/use_custom_user_dir=true
