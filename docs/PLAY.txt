@@ -1,0 +1,12 @@
+Unseen Order 0.9.1 — prototype archive checkpoint
+
+This is an experimental collection, not a finished game. The default is Type3, A World, Gathered. Its design is paused for reconsideration.
+
+Run Unseen-Order.exe. Keep the PCK and data directory beside the executable.
+Drag objects to rearrange the garden. Use the lower pouch buttons to place things; arrows browse three items at a time. Turn off the lights to warm stones. After growing a flower, click the hollow to send an expedition. Select an object to pack it without losing its traits.
+
+Space: pause/resume. Escape: cancel selection. F8: record a feedback marker. The upper language button switches English/Korean.
+
+Saves are local in %APPDATA%/UnseenOrder. The active garden uses type3-garden-v11.json and can import the earlier v10 save without deleting it. Detailed local playtest recording is enabled at the first player's explicit request; game-only captures and logs are written under artifacts in the package folder. No live AI requests are made by the garden.
+
+Earlier source prototypes, tests, and design notes are preserved in the repository. No Steam integration or mobile build is included.

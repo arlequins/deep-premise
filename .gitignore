@@ -7,3 +7,7 @@ artifacts/*
 *.log
 .DS_Store
 *.tmp
+
+**/bin/
+**/obj/
+*.user

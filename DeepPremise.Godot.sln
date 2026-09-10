@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepPremise.Godot", "DeepPremise.Godot.csproj", "{14BA9970-13E8-4ED7-ADB7-68C997C30DCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AE9D870D-979C-449D-B06B-CBDC579A1F16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepPremise.Core", "src\DeepPremise.Core\DeepPremise.Core.csproj", "{C8D9F8BF-C415-46FD-AA6D-818A2B5654A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepPremise.Dialogue", "src\DeepPremise.Dialogue\DeepPremise.Dialogue.csproj", "{190476F2-BC96-4A69-AAE1-DEE768E88334}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{139E3C83-D24D-4FFB-B983-FEAAB2325A1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepPremise.Tests", "tests\DeepPremise.Tests\DeepPremise.Tests.csproj", "{C8F1C8D5-9E45-4113-B96E-F25DFBCD2B2C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14BA9970-13E8-4ED7-ADB7-68C997C30DCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14BA9970-13E8-4ED7-ADB7-68C997C30DCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14BA9970-13E8-4ED7-ADB7-68C997C30DCC}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{14BA9970-13E8-4ED7-ADB7-68C997C30DCC}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{C8D9F8BF-C415-46FD-AA6D-818A2B5654A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8D9F8BF-C415-46FD-AA6D-818A2B5654A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8D9F8BF-C415-46FD-AA6D-818A2B5654A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8D9F8BF-C415-46FD-AA6D-818A2B5654A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{190476F2-BC96-4A69-AAE1-DEE768E88334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{190476F2-BC96-4A69-AAE1-DEE768E88334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{190476F2-BC96-4A69-AAE1-DEE768E88334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{190476F2-BC96-4A69-AAE1-DEE768E88334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8F1C8D5-9E45-4113-B96E-F25DFBCD2B2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8F1C8D5-9E45-4113-B96E-F25DFBCD2B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8F1C8D5-9E45-4113-B96E-F25DFBCD2B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8F1C8D5-9E45-4113-B96E-F25DFBCD2B2C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C8D9F8BF-C415-46FD-AA6D-818A2B5654A3} = {AE9D870D-979C-449D-B06B-CBDC579A1F16}
+		{190476F2-BC96-4A69-AAE1-DEE768E88334} = {AE9D870D-979C-449D-B06B-CBDC579A1F16}
+		{C8F1C8D5-9E45-4113-B96E-F25DFBCD2B2C} = {139E3C83-D24D-4FFB-B983-FEAAB2325A1D}
+	EndGlobalSection
+EndGlobal
