@@ -36,6 +36,8 @@ public static class PlaytestReplay
         var result = state.ToJsonString(new JsonSerializerOptions { WriteIndented = true });
         IRecordedWorld loaded = state["Version"]!.GetValue<int>() switch
         {
+            13 => Sixfold.SixfoldRun.LoadJson(result),
+            12 => FirstLight.LightWorld.LoadJson(result),
             11 => Garden.GardenWorld.LoadJson(result),
             10 => Garden.GardenWorld.LoadJson(result),
             9 => City.CityWorld.LoadJson(result),

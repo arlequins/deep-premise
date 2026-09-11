@@ -111,6 +111,8 @@ HabitChecks.Run(Check);
 CityChecks.Run(Check);
 GardenChecks.Run(Check);
 GardenEcologyChecks.Run(Check);
+FirstLightChecks.Run(Check);
+SixfoldChecks.Run(Check);
 PlaytestChecks.Run(Check);
 StoryChecks.Run(Check);
 LocalizationChecks.Run(Check);

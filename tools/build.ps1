@@ -23,7 +23,10 @@ $version = $versionMatch.Groups[1].Value
 $packageDirectory = "dist/Unseen-Order-$version-Windows-x64"
 if (Test-Path $packageDirectory) { throw "Package directory already exists: $packageDirectory. Preserve it or choose a new version." }
 New-Item -ItemType Directory -Force $packageDirectory | Out-Null
+$previousErrorPreference = $ErrorActionPreference
+$ErrorActionPreference = 'Continue' # Godot writes harmless warnings to stderr on Windows PowerShell.
 & $engine --headless --path . --export-release 'Windows Desktop' "$packageDirectory/Unseen-Order.exe" *> .tools/export-csharp.log
+$ErrorActionPreference = $previousErrorPreference
 if ($LASTEXITCODE -ne 0 -or (Select-String -Path .tools/export-csharp.log -Pattern '^ERROR:' -Quiet)) { throw 'Export failed; inspect .tools/export-csharp.log.' }
 Copy-Item game/assets/GODOT-LICENSE.txt,game/assets/OFL.txt $packageDirectory
 Copy-Item docs/PLAY.txt "$packageDirectory/PLAY.txt"

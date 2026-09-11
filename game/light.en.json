@@ -1,0 +1,21 @@
+{
+  "title":"Where Light Does Not Reach", "pause":"Pause", "resume":"Resume", "retry":"Begin again",
+  "goal":"Raise three lives that can live on their own.  {0} / 3",
+  "release_goal":"Now withdraw the light.  Independence in {0}s",
+  "first_hint":"Move the light with your mouse. In light, things stop. In darkness, they grow.",
+  "egg_hint":"The seed cannot awaken while you illuminate it. Leave it in darkness for a while.",
+  "growth_hint":"Small lives seek food and grow in darkness. Illuminated food is frozen too; leave a path open.",
+  "hunter_hint":"Light stops the hunter too. An old forest gives small lives shelter.",
+  "held_hint":"The hunter is held still. You are buying time for the rest to grow. Old forests become shelter.",
+  "release_hint":"Move your mouse outside the garden to turn off the light. Three grown lives must survive alone for 24 seconds.",
+  "birth":"A small life awoke in the dark. Follow the spreading ripple to find it.",
+  "grown":"A life has grown by feeding. With enough nourishment, it will leave a new seed.",
+  "hunter":"Something is approaching from the right. Find it and hold it with light.",
+  "taken":"The hunter took a life. Protect the others with light, or buy time for forests to grow.",
+  "starved":"A life disappeared without food. Leave food in darkness so it can grow.",
+  "new_seed":"A grown life left a new seed. It will awaken in darkness too.",
+  "won":"While you were not watching, the world lived on.",
+  "won_hint":"Three lives survived without your light. Your first small world is complete.",
+  "lost":"The last life has disappeared.",
+  "lost_hint":"You can begin again. Keeping a life illuminated stops its growth; illuminating the hunter buys time."
+}
